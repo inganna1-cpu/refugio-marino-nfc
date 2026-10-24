@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panel de mesas · Refugio Marino</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:#06344a;color:#fff;height:100vh;display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#0b6e7f;gap:10px}h1{font-size:19px}
+#estado{font-size:13px}.wrap{flex:1;display:flex;gap:12px;padding:12px;min-height:0}
+#mapa{flex:2.2;position:relative;background:#e8f7f6;border-radius:16px;overflow:hidden}
+.mesa{position:absolute;transform:translate(-50%,-50%);background:#fff;color:#06344a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;border:2px solid #2bb3b1;box-shadow:0 2px 6px rgba(0,0,0,.2);cursor:pointer;border-radius:6px}
+.mesa.redonda{border-radius:50%}.mesa .b{position:absolute;top:-22px;font-size:20px;display:none}
+.mesa.on{background:#ff7a59;color:#fff;border-color:#fff;animation:p 1s infinite;z-index:2}.mesa.on .b{display:block}
+@keyframes p{50%{box-shadow:0 0 0 12px rgba(255,122,89,.35)}}
+aside{flex:1;background:#0a4560;border-radius:16px;padding:12px;overflow:auto;min-width:240px}aside h2{font-size:16px;margin-bottom:8px}
+.item{background:#fff;color:#06344a;border-radius:12px;padding:10px;margin-bottom:8px}.item b{font-size:18px}
+.item button{margin-top:6px;width:100%;padding:10px;border:none;border-radius:10px;background:#25a36a;color:#fff;font-weight:700;font-size:15px}
+#login{position:fixed;inset:0;background:rgba(6,52,74,.95);display:flex;align-items:center;justify-content:center;z-index:9}
+#login form{background:#fff;color:#06344a;padding:24px;border-radius:16px;width:300px}#login input,#login button{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ccc;font-size:16px}
+#login button{background:#0b6e7f;color:#fff;border:none;font-weight:700}
+</style></head><body>
+<header><h1>🔔 Refugio Marino · Llamados</h1><span id="estado">Desconectado</span></header>
+<div class="wrap"><div id="mapa"></div><aside><h2>Llamados pendientes</h2><div id="lista"><p style="opacity:.7">Sin llamados 🌊</p></div></aside></div>
+<div id="login"><form onsubmit="entrar(event)"><h3>Panel de caja</h3><input id="em" type="email" placeholder="Correo del personal" required><input id="pw" type="password" placeholder="Contraseña" required><button>Entrar</button><p id="lerr" style="color:#b04a2f;font-size:13px;margin-top:8px"></p><p style="font-size:12px;margin-top:8px;opacity:.7">Panel de respaldo. Requiere usuario con rol admin/cajero/mesero.</p></form></div>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const SUPABASE_URL='https://idhxedaebgkyfvmliwfv.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkaHhlZGFlYmdreWZ2bWxpd2Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTUxMDIsImV4cCI6MjEwNjg5MTEwMn0.SzjXSfI8z_6rKpXqloAzZz9ylTtMKTuBRMYjbhGjVrs';
+const RESTAURANTE_ID=1;
+const TIPOS={mesero:'🙋 Mesero',cuenta:'🧾 Cuenta',servilletas:'🍴 Servilletas',otro:'💬 Otro'};
+const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let MESAS=[],pend=[];const $=id=>document.getElementById(id);
+const nombre=id=>(MESAS.find(m=>m.id===id)||{}).nombre||('#'+id);
+function dibujar(){const mapa=$('mapa');mapa.innerHTML='';if(!MESAS.length)return;
+ const pad=40,minX=Math.min(...MESAS.map(m=>m.pos_x-m.ancho/2))-pad,maxX=Math.max(...MESAS.map(m=>m.pos_x+m.ancho/2))+pad,
+ minY=Math.min(...MESAS.map(m=>m.pos_y-m.alto/2))-pad,maxY=Math.max(...MESAS.map(m=>m.pos_y+m.alto/2))+pad;
+ const W=mapa.clientWidth,H=mapa.clientHeight,k=Math.min(W/(maxX-minX),H/(maxY-minY)),ox=(W-(maxX-minX)*k)/2,oy=(H-(maxY-minY)*k)/2;
+ MESAS.forEach(m=>{const d=document.createElement('div');d.className='mesa'+(m.forma==='redonda'?' redonda':'');d.id='m'+m.id;
+  Object.assign(d.style,{left:ox+(m.pos_x-minX)*k+'px',top:oy+(m.pos_y-minY)*k+'px',width:Math.max(m.ancho*k,34)+'px',height:Math.max(m.alto*k,34)+'px',transform:`translate(-50%,-50%) rotate(${m.rotacion||0}deg)`});
+  d.title=(m.zona||'');d.innerHTML='<span class="b">🔔</span>'+m.nombre;d.onclick=()=>{const c=pend.find(p=>p.mesa_id===m.id);if(c)atender(c.id)};mapa.appendChild(d)});render()}
+addEventListener('resize',dibujar);
+let ac;function beep(){try{ac=ac||new AudioContext();[0,.25].forEach(t=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.3,ac.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+.2);o.start(ac.currentTime+t);o.stop(ac.currentTime+t+.2)})}catch(e){}}
+document.body.addEventListener('pointerdown',()=>{ac=ac||new AudioContext();ac.resume()},{once:true});
+const hace=t=>{const s=Math.floor((Date.now()-new Date(t))/1000);return s<60?s+' s':Math.floor(s/60)+' min'};
+function render(){MESAS.forEach(m=>{const d=$('m'+m.id);if(d)d.classList.toggle('on',pend.some(p=>p.mesa_id===m.id))});
+ $('lista').innerHTML=pend.length?pend.map(p=>`<div class="item"><b>Mesa ${nombre(p.mesa_id)}</b> · ${TIPOS[p.tipo]}<br><small>hace ${hace(p.creado)}${p.nota?' · “'+p.nota.replace(/</g,'&lt;')+'”':''}</small><button onclick="atender(${p.id})">✔ Atendida</button></div>`).join(''):'<p style="opacity:.7">Sin llamados 🌊</p>'}
+setInterval(render,1000);
+window.atender=async id=>{pend=pend.filter(p=>p.id!==id);render();await sb.from('llamados').update({atendido_en:new Date().toISOString()}).eq('id',id).is('atendido_en',null)};
+async function cargar(){
+ const {data:ms}=await sb.from('mesas').select('id,nombre,zona,pos_x,pos_y,ancho,alto,rotacion,forma').eq('restaurante_id',RESTAURANTE_ID).eq('activa',true).order('nombre');MESAS=ms||[];dibujar();
+ const {data}=await sb.from('llamados').select('*').eq('restaurante_id',RESTAURANTE_ID).is('atendido_en',null).order('creado');pend=data||[];render()}
+function conectar(){sb.channel('llamados-panel').on('postgres_changes',{event:'*',schema:'public',table:'llamados',filter:'restaurante_id=eq.'+RESTAURANTE_ID},p=>{
+ if(p.eventType==='INSERT'&&!p.new.atendido_en){pend.push(p.new);beep();navigator.vibrate&&navigator.vibrate([300,100,300])}
+ if(p.eventType==='UPDATE'&&p.new.atendido_en)pend=pend.filter(x=>x.id!==p.new.id);render()})
+ .on('postgres_changes',{event:'*',schema:'public',table:'mesas'},()=>cargar())
+ .subscribe(s=>{$('estado').textContent=s==='SUBSCRIBED'?'🟢 En vivo':'🟠 '+s;if(s==='SUBSCRIBED')cargar()})}
+window.entrar=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:em.value,password:pw.value});if(error){lerr.textContent='Datos incorrectos';return}$('login').remove();conectar()};
+const {data}=await sb.auth.getSession();if(data.session){$('login').remove();conectar()}
+</script></body></html>

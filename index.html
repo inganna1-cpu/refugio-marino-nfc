@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Refugio Marino · Restaurante campestre pescadería</title>
+<style>
+:root{--deep:#06344a;--sea:#0b6e7f;--aqua:#2bb3b1;--foam:#e8f7f6;--sand:#f6eddc;--coral:#ff7a59;--txt:#12303d}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,#e6f6f6,#f6eddc);color:var(--txt);min-height:100vh}
+header{background:linear-gradient(160deg,var(--deep),var(--sea) 70%,var(--aqua));color:#fff;padding:28px 20px 46px;text-align:center;position:relative;overflow:hidden}
+header h1{font-family:"Brush Script MT","Segoe Script",cursive;font-size:44px;font-weight:400;letter-spacing:1px}header p{opacity:.85;font-size:14px;margin-top:4px}
+.mesa-tag{display:inline-block;margin-top:10px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:20px;font-size:13px}
+.wave{position:absolute;bottom:-1px;left:0;width:100%;height:36px}
+main{max-width:520px;margin:-18px auto 0;padding:0 16px 40px;position:relative}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn{background:#fff;border:none;border-radius:20px;padding:20px 10px;box-shadow:0 6px 18px rgba(6,52,74,.12);text-align:center;font-size:15px;font-weight:600;color:var(--deep);cursor:pointer;text-decoration:none;display:block}
+.btn .ico{font-size:34px;display:block;margin-bottom:6px}.btn.wide{grid-column:span 2;background:linear-gradient(135deg,var(--sea),var(--aqua));color:#fff}
+.view{display:none}.view.on{display:block;animation:f .3s}@keyframes f{from{opacity:0;transform:translateY(8px)}}
+.back{background:none;border:none;color:var(--sea);font-weight:700;font-size:15px;margin:14px 0;cursor:pointer}
+.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:14px}
+h2{color:var(--deep);font-size:22px;margin-bottom:10px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;position:sticky;top:0;background:linear-gradient(#e6f6f6 80%,transparent);z-index:2}
+.cats button{flex:none;border:2px solid var(--aqua);background:#fff;color:var(--sea);border-radius:20px;padding:8px 14px;font-weight:600;cursor:pointer}
+.cats button.on{background:var(--sea);border-color:var(--sea);color:#fff}
+.dish{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:16px}
+.ph{height:150px;background:linear-gradient(135deg,#bfe7e5,#0b6e7f);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-size:13px;opacity:.95}.ph span{font-size:38px}
+.dish .b{padding:14px 16px}.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.dish h3{font-size:17px;color:var(--deep)}.price{font-weight:800;color:var(--coral);white-space:nowrap}
+.dish p{font-size:14px;line-height:1.45;margin-top:6px;color:#33525e}.badge{background:var(--coral);color:#fff;font-size:11px;border-radius:8px;padding:2px 7px;margin-left:6px;vertical-align:middle}
+.note{font-size:12px;color:#5b7a85;margin:-4px 0 12px}
+.sub{font-size:15px;color:var(--sea);margin:18px 0 8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.drink{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #cfe5e4;font-size:15px}
+input{width:100%;padding:14px;border-radius:12px;border:2px solid #cfe5e4;font-size:18px;margin:10px 0}
+.cta{display:block;width:100%;text-align:center;background:#25d366;color:#fff;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;margin-top:6px}
+.cta.alt{background:var(--sea)}.pend{color:#b04a2f;font-weight:700}
+canvas{width:100%;border-radius:16px;background:linear-gradient(#7fd3e0,#0b4f6c);touch-action:none;display:block}
+footer{text-align:center;font-size:12px;color:#5b7a85;padding:20px}
+</style></head><body>
+<header><h1>Refugio Marino</h1><p>Restaurante campestre · pescadería</p><div class="mesa-tag" id="mesaTag">Bienvenido 🌊</div>
+<svg class="wave" viewBox="0 0 400 36" preserveAspectRatio="none"><path d="M0 20 Q50 0 100 20 T200 20 T300 20 T400 20 V36 H0Z" fill="#e6f6f6"/></svg></header>
+<main>
+<section class="view on" id="v-home"><div class="grid">
+<button class="btn wide" onclick="go('menu')"><span class="ico">📖</span>Ver la carta</button>
+<button class="btn" onclick="go('mesero')"><span class="ico">🙋</span>Llamar al mesero</button>
+<button class="btn" disabled style="opacity:.5;cursor:default"><span class="ico">📶</span>Wifi<br><small>Próximamente</small></button>
+<button class="btn" onclick="go('redes')"><span class="ico">📱</span>Redes sociales</button>
+<a class="btn" id="resenaBtn" href="#" onclick="return resena()"><span class="ico">⭐</span>Déjanos tu reseña</a>
+<button class="btn wide" onclick="go('juego')" style="background:linear-gradient(135deg,#ff9a6b,var(--coral))"><span class="ico">🐠</span>Juego: Atrapa los peces</button>
+</div>
+<div class="card" style="margin-top:16px;text-align:center"><b>Reservas y eventos</b><p style="font-size:14px;margin-top:6px">Atendemos reuniones sociales, familiares y empresariales en salón de eventos. 🎂 Tenemos protocolo de cumpleaños. 🚗 Estacionamiento disponible.</p><a class="cta alt" href="https://wa.me/573107689859?text=Hola%2C%20quiero%20hacer%20una%20reserva">Reservar: 310 768 9859</a></div>
+</section>
+
+<section class="view" id="v-menu"><button class="back" onclick="go('home')">← Inicio</button><h2>Nuestra carta</h2><div class="cats" id="cats"></div><div id="dishes"></div></section>
+
+<section class="view" id="v-mesero"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>🙋 ¿Qué necesitas?</h2>
+<input id="mesaIn" type="text" autocapitalize="characters" placeholder="Mesa (ej. S1-01)" maxlength="6">
+<div class="grid" style="margin-top:6px">
+<button class="btn" onclick="pedir('mesero')"><span class="ico">🙋</span>Llamar al mesero</button>
+<button class="btn" onclick="pedir('cuenta')"><span class="ico">🧾</span>Pedir la cuenta</button>
+<button class="btn" onclick="pedir('servilletas')"><span class="ico">🍴</span>Servilletas / cubiertos</button>
+<button class="btn" onclick="pedir('otro')"><span class="ico">💬</span>Otro</button></div>
+<input id="notaIn" maxlength="140" placeholder="(Opcional) Cuéntanos qué necesitas" style="font-size:15px">
+<p id="msg" style="text-align:center;font-weight:700;margin-top:8px"></p>
+<a class="cta" id="waFb" href="#" onclick="return mesero()" style="display:none">Avisar por WhatsApp</a></div></section>
+
+<section class="view" id="v-redes"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>📱 Síguenos</h2>
+<a class="cta alt" style="background:#1877f2" href="https://www.facebook.com/refugiomarinorestaurantebog/" target="_blank" rel="noopener">Facebook <span>Refugio Marino Restaurante</span></a>
+<a class="cta alt" style="background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af)" href="https://www.instagram.com/refugiomarino.bog/">Instagram · @refugiomarino.bog</a>
+<a class="cta alt" style="background:#111" href="https://www.tiktok.com/@refugiomarino.bog">TikTok · @refugiomarino.bog</a>
+</div></section>
+
+<section class="view" id="v-wifi"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>📶 Wifi</h2>
+<p>Red: <b id="ssid">[PENDIENTE: nombre de la red]</b></p><p style="margin-top:8px">Clave: <b id="pass">[PENDIENTE: clave]</b></p>
+<button class="cta alt" onclick="copiar()">Copiar clave</button><p id="ok" class="note" style="margin-top:8px"></p></div></section>
+
+<section class="view" id="v-juego"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>🐠 Atrapa los peces</h2><p class="note">Toca los peces antes de que escapen. ¡Evita los cangrejos! 30 segundos.</p>
+<canvas id="cv" width="360" height="420"></canvas><p style="margin-top:8px;text-align:center"><b id="score">Puntos: 0</b> · <span id="time">30s</span></p><button class="cta alt" onclick="startGame()">Jugar</button></div></section>
+<footer>Refugio Marino · Reservas 310 768 9859<br>Siempre se piensa en volver… 🌴</footer>
+</main>
+<script>
+const WA='573107689859', GOOGLE_REVIEW='[PENDIENTE]', WIFI={ssid:'[PENDIENTE]',pass:'[PENDIENTE]'};
+const MESA_RE=/^S\d{1,2}-\d{2}$/;const _m=(new URLSearchParams(location.search).get('mesa')||'').trim().toUpperCase();const mesa=MESA_RE.test(_m)?_m:null;
+if(mesa){document.getElementById('mesaTag').textContent='Mesa '+mesa+' · Bienvenido 🌊';document.getElementById('mesaIn').value=mesa}
+function go(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));document.getElementById('v-'+v).classList.add('on');scrollTo(0,0);if(v==='menu'&&!document.getElementById('cats').children.length)buildMenu()}
+const BACKEND_URL='https://idhxedaebgkyfvmliwfv.supabase.co/functions/v1/llamar-mesero'; // ej: https://<ref>.supabase.co/functions/v1/llamar-mesero
+const TIPO_TXT={mesero:'necesito un mesero',cuenta:'quiero pedir la cuenta',servilletas:'necesito servilletas/cubiertos',otro:'necesito ayuda'};
+let ultimoTipo='mesero';
+function mesaVal(){const m=document.getElementById('mesaIn').value.trim().toUpperCase();return MESA_RE.test(m)?m:null}
+function msg(t,c){const e=document.getElementById('msg');e.textContent=t;e.style.color=c||'var(--sea)'}
+async function pedir(tipo){ultimoTipo=tipo;const m=mesaVal();if(!m){msg('Escribe tu mesa como aparece en la etiqueta (ej. S1-01)','#b04a2f');return}
+const k='llamado_'+m,lastT=+localStorage.getItem(k)||0,falta=60-Math.floor((Date.now()-lastT)/1000);
+if(falta>0){msg('Ya avisamos 🙌 Puedes volver a llamar en '+falta+' s');return}
+msg('Enviando…');const nota=document.getElementById('notaIn').value.trim();
+try{if(BACKEND_URL.startsWith('['))throw 0;
+const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mesa:m,tipo,nota:nota||undefined})});
+if(r.status===404){msg('No encontramos la mesa '+m+'. Revisa la etiqueta.','#b04a2f');return}
+if(r.status===429){localStorage.setItem(k,Date.now());msg('Ya avisamos 🙌 Tu mesero ya viene');return}
+if(!r.ok)throw 0;localStorage.setItem(k,Date.now());msg('✅ ¡Tu mesero ya viene!');document.getElementById('waFb').style.display='none'}
+catch(e){msg('No pudimos avisar automáticamente. Usa WhatsApp:','#b04a2f');document.getElementById('waFb').style.display='block'}}
+function mesero(){const m=mesaVal()||'__';const n=document.getElementById('notaIn').value.trim();location.href='https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, '+TIPO_TXT[ultimoTipo]+' en la mesa '+m+(n?'. '+n:''));return false}
+function resena(){if(GOOGLE_REVIEW.startsWith('['))alert('Enlace de reseña en Google [PENDIENTE]');else location.href=GOOGLE_REVIEW;return false}
+function copiar(){navigator.clipboard&&navigator.clipboard.writeText(WIFI.pass);document.getElementById('ok').textContent='¡Clave copiada!'}
+const S='Pregunte precio según tamaño';
+const MENU={
+'Entradas':{i:'🦐',d:[
+['Ceviche de camarones Cumbiambero',33000,'Camarones tigre con plumas de cebolla, aromatizados con cilantro y terminados en salsa de tomate. Un ceviche cantado al mejor estilo colombiano, fresco y lleno de sabor.'],
+['Ceviche de Mango',28000,'Fresco preparado de cubitos de mango, aguacate y camarones, sumergidos en una exquisita leche de tigre con cebolla morada y cilantro. Dulce, cítrico y refrescante, acompañado de chips de plátano.'],
+['Patacones con hogao',13000,'Crujientes tostones de plátano verde acompañados de nuestro inigualable hogao criollo. El clásico para compartir mientras llega el plato fuerte.'],
+['Calamares y camarones al ajillo',36000,'Aros de calamar y camarones tigre salteados en mantequilla de ajo y paprika, servidos bien calientes con crujientes chips de plátano.'],
+['Ceviche peruano',35000,'Cubos de pescado blanco marinados en leche de tigre, con cebolla morada en plumas, cilantro y cubos de aguacate. Acompañado de crujientes platanitos.'],
+['Aros de calamar rebosados',32000,'Aros de calamar dorados y crujientes, acompañados de nuestra salsa artesanal de limón y almendras.'],
+['Chicharrón de Pirarucú (para compartir)',36000,'Cubitos de filete de pirarucú del río Amazonas rebozados y dorados, servidos con nuestra salsa artesanal de pimentón y almendras. Ideal para la mesa.']]},
+'Sopas':{i:'🍲',d:[
+['Crema Marinera',29000,'Tradicional bisque de jaiba azul y fumet de pescado: una crema sedosa e intensa con todo el sabor del mar.'],
+['Sancocho del Pacífico',11500,'Preparado con pescado fresco, cubos de plátano y yuca, con toda la tradición de nuestro Pacífico colombiano. Reconfortante y casero.']]},
+'Pescados':{i:'🐟',note:'S.T. = precio según tamaño; pregunta a tu mesero.',d:[
+['Pargo Rojo','S.T.','Fresco pescado de mar, pídelo frito y crocante o guisado en leche de coco con todo el sabor de la casa. Acompañado de papa en casco, patacón y ensalada.'],
+['Róbalo Gualajo','S.T.','Fresco pescado de mar, pídelo frito o guisado en leche de coco con todo el sabor de la casa. Acompañado de papa en casco, patacón y ensalada.'],
+['Mojarra roja','S.T.','Crocante y fresca mojarra roja frita, dorada por fuera y jugosa por dentro. Acompañada de papa en casco, patacón y ensalada.']]},
+'Mariscos':{i:'🦞',d:[
+['Arroz Marinero',51000,'Arroz salteado con pulpo, mix de calamares, camarones y mejillones, con todo el sabor caribe. Acompañado de papas de la casa y ensalada fresca.'],
+['Camarones Apanados',49000,'Camarones tigre apanados, dorados y crocantes, acompañados de nuestra ensalada fresca, patacón y aros de calamar.'],
+['Cazuela Mariscos Refugio Marino',59000,'Nuestra cazuela insignia: pulpo, mix de calamares, camarones, palmitos y mejillones en una deliciosa crema marinera. Acompañada de arroz con coco y patacón.'],
+['Cazuela Camarones',58000,'Cremosa cazuela de bisque de jaiba con camarones, anillos de calamar, mejillón, palmitos y queso parmesano, con todo el sabor caribe. Con arroz con coco y patacón.'],
+['Arroz con Camarones',49000,'Arroz salteado con camarones tigre seleccionados y vegetales, con todo el sabor caribe. Acompañado de papas de la casa y ensalada fresca.'],
+['Paella valenciana',56000,'Arroz parbolizado con trozos de lomo de cerdo, pollo, chorizo y frutos del mar: anillos de calamar, camarones y mejillón. Acompañada de pan de ajo y mantequilla.']]},
+'Filetes y salsas':{i:'🍣',note:'Los filetes incluyen una salsa a elección de la lista.',salsas:[
+['Salsa de camarones','Camarones salteados al pimentón, mezclados con crema de jaibas azules y terminados con cremosa leche de coco.'],
+['Salsa Mediterránea','Preparada con nuestra exquisita crema de jaiba azul del Pacífico.'],
+['Salsa al ajillo','Inigualable cobertura de mantequilla y ajo, aromatizada con perejil fresco.'],
+['Salsa Provenzal','Champiñones en reducción de crema de leche, aromatizada con especias.'],
+['Salsa Menier','Zumo de limón, mantequilla, almendras crocantes y un ligero toque de ajo.']],d:[
+['Filete de salmón',59000,'Jugoso corte de salmón chileno a la plancha, con la salsa de tu elección. Acompañado de papa en casco y ensalada.'],
+['Filete de Róbalo',59000,'Espectacular filete de róbalo a la plancha, con la salsa de tu elección. Acompañado de papa en casco y ensalada.'],
+['Filete de Pargo Rojo',62000,'Filete de pargo rojo con la salsa de tu elección. Pregunta disponibilidad.'],
+['Filete de Tilapia',49000,'Fresco filete de tilapia roja a la plancha, con la salsa de tu elección. Acompañado de papa en casco y ensalada.'],
+['Trucha a la plancha',48000,'Fresca trucha a la plancha, con la salsa de tu elección. Acompañada de papa en casco y ensalada.'],
+['Sancocho de Bagre',49000,'Abundante posta de bagre dorado preparada en sancocho con papa, yuca y plátano. Acompañado de arroz y ensalada de la casa.']]},
+'Carnes':{i:'🥩',d:[
+['Churrasco Argentino',49000,'Jugoso corte mariposa macerado con chimichurri y asado a punto.'],
+['Lomo fino en salsa de champiñones',52000,'Medallones de lomo fino de res cubiertos con nuestra exquisita salsa de champiñones paris.'],
+['Lomo saltado',55000,'Cubos de tierno lomo fino salteados con cebolla, tomate y pimentón. Acompañado de papas en casco y arroz.'],
+['Chuleta de cerdo en salsa maracuyá',49000,'Dos cortes de chuleta de lomo de cerdo a la plancha con nuestra salsa reducción de maracuyá, agridulce y tropical. Con papas en casco y ensalada del día.'],
+['Filet Mignon de Pollo en champiñones',47000,'Medallones de pechuga de pollo envueltos en tocineta, a la plancha, con champiñones en su salsa. Con papas en casco y ensalada del día.'],
+['Pechuga de pollo salsa champiñones',39000,'Pechuga asada a la plancha bañada en salsa de champiñones, con papas en casco y ensalada del día.'],
+['Pechuga de pollo a la plancha',36000,'Pechuga de pollo a la plancha, sencilla, jugosa y saludable.'],
+['Nuggets de pollo (menú infantil)',29000,'Para los más pequeños: nuggets de pollo dorados, acompañados de papa a la francesa y ensalada.']]},
+'Pastas':{i:'🍝',d:[
+['Tagliatelle al funghi',47000,'Pasta tagliatelle artesanal al huevo con hongos paris, salsa pesto y queso parmesano.'],
+['Tagliatelle Gamberetti',49000,'Tagliatelle con camarones tigre salteados en una deliciosa salsa de camarones.'],
+['Tagliatelle Mediterránea',52000,'Tagliatelle artesanal con frutos del mar, bisque de jaiba azul, camarones, mejillón y queso parmesano. Acompañada de tostadas con pan y mantequilla.'],
+['Tagliatelle pollo y champiñones',48000,'Tagliatelle artesanal con pollo y láminas de champiñones en su salsa, con queso parmesano. Acompañada de pan con mantequilla de ajo.']]},
+'Bebidas':{i:'🍹',drinks:[
+['Jugos naturales',[['Jugo en agua',8500],['Jugo en leche',9500]],'Guanábana, mora, fresa, lulo, mango, maracuyá, piña, frutos amarillos, frutos rojos, limonada natural.'],
+['Limonadas y otras',[['Limonada de coco',11000],['Limonada de hierbabuena',9500],['Cerezada',9500],['Piña con jengibre y hierbabuena',9500],['Agua con gas / sin gas',6500],['Gaseosa',7500],['Soda',6500]]],
+['Vinos',[['Vino tinto Casillero',135000],['Vino blanco Casillero',135000],['Vino tinto chileno',125000],['Copa de vino',19000]]],
+['Cervezas',[['Club Dorada',9000],['Club Roja',9500],['Club Verde',9500],['Cerveza Corona',9500],['Cerveza Poker',8500],['Stella Artois',13000]]],
+['Propuestas nuevas',[['Michelada',0],['Limonada cerezada',0],['Jugo de corozo',0],['Agua de panela con limón',0],['Mojito sin alcohol',0],['Coctel de la casa (piña colada)',0],['Café tinto / capuchino',0]],'Bebidas sugeridas para ampliar la carta.']]}
+};
+const fmt=p=>p==='S.T.'?'S.T.':'$'+p.toLocaleString('es-CO');
+function buildMenu(){const c=document.getElementById('cats');Object.keys(MENU).forEach((k,i)=>{const b=document.createElement('button');b.textContent=MENU[k].i+' '+k;b.onclick=()=>showCat(k);c.appendChild(b)});const q=new URLSearchParams(location.search).get('cat');showCat(MENU[q]?q:'Entradas')}
+function showCat(k){document.querySelectorAll('#cats button').forEach(b=>b.classList.toggle('on',b.textContent.endsWith(k)));const m=MENU[k];let h='<h2>'+m.i+' '+k+'</h2>'+(m.note?'<p class="note">'+m.note+'</p>':'');
+if(m.salsas){h+='<div class="card"><div class="sub" style="margin-top:0">Salsas para filetes</div>'+m.salsas.map(s=>'<p style="font-size:14px;margin:8px 0"><b>'+s[0]+':</b> '+s[1]+'</p>').join('')+'</div>'}
+if(m.d)h+=m.d.map(d=>'<div class="dish"><div class="ph"><span>'+m.i+'</span>Foto próximamente</div><div class="b"><div class="row"><h3>'+d[0]+'</h3><span class="price">'+fmt(d[1])+'</span></div><p>'+d[2]+'</p></div></div>').join('');
+if(m.drinks)h+=m.drinks.map(g=>'<div class="card"><div class="sub" style="margin-top:0">'+g[0]+'</div>'+(g[2]?'<p class="note">'+g[2]+'</p>':'')+g[1].map(x=>'<div class="drink"><span>'+x[0]+(x[1]===0?'<span class="badge">Nuevo</span>':'')+'</span><b class="'+(x[1]?'':'pend')+'">'+(x[1]?fmt(x[1]):'[definir]')+'</b></div>').join('')+'</div>').join('');
+document.getElementById('dishes').innerHTML=h}
+// juego
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');let items=[],score=0,t=0,run=false,last=0,spawn=0;
+function startGame(){items=[];score=0;t=30;run=true;last=performance.now();requestAnimationFrame(loop)}
+function loop(n){if(!run)return;const dt=(n-last)/1000;last=n;t-=dt;spawn-=dt;if(spawn<=0){spawn=.6;const crab=Math.random()<.2,dir=Math.random()<.5?1:-1;items.push({x:dir>0?-30:390,y:40+Math.random()*340,v:dir*(60+Math.random()*90+score*2),e:crab?'🦀':['🐟','🐠','🐡','🦐'][Math.random()*4|0],crab})}
+items.forEach(i=>i.x+=i.v*dt);items=items.filter(i=>i.x>-40&&i.x<400);cx.clearRect(0,0,360,420);cx.fillStyle='rgba(255,255,255,.25)';for(let k=0;k<6;k++){cx.beginPath();cx.arc((k*70+n/20)%380,410-(n/15+k*60)%420,4,0,7);cx.fill()}
+cx.font='34px serif';cx.textAlign='center';cx.textBaseline='middle';items.forEach(i=>{cx.save();cx.translate(i.x,i.y);if(i.v>0&&!i.crab)cx.scale(-1,1);cx.fillText(i.e,0,0);cx.restore()});
+document.getElementById('score').textContent='Puntos: '+score;document.getElementById('time').textContent=Math.max(0,Math.ceil(t))+'s';
+if(t<=0){run=false;cx.fillStyle='rgba(6,52,74,.75)';cx.fillRect(0,0,360,420);cx.fillStyle='#fff';cx.font='bold 26px sans-serif';cx.fillText('¡Fin! '+score+' puntos',180,190);cx.font='16px sans-serif';cx.fillText(score>=15?'¡Eres un gran pescador! 🎣':'Inténtalo otra vez 🌊',180,225);return}requestAnimationFrame(loop)}
+cv.addEventListener('pointerdown',e=>{if(!run)return;const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*360/r.width,y=(e.clientY-r.top)*420/r.height;for(let k=items.length-1;k>=0;k--){const i=items[k];if(Math.hypot(i.x-x,i.y-y)<30){score+=i.crab?-3:1;items.splice(k,1);break}}});
+if(new URLSearchParams(location.search).get("cat"))go("menu");
+cx.font='20px sans-serif';cx.fillStyle='#fff';cx.textAlign='center';cx.fillText('Pulsa "Jugar" 🐟',180,210);
+</script></body></html>
