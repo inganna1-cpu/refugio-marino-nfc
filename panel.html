@@ -1,55 +1,247 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panel de mesas · Refugio Marino</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<title>Refugio Marino - Atención</title>
+<!-- Tipografía de marca: cambiar aquí cuando Ana envíe la fuente de referencia -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:#06344a;color:#fff;height:100vh;display:flex;flex-direction:column}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#0b6e7f;gap:10px}h1{font-size:19px}
-#estado{font-size:13px}.wrap{flex:1;display:flex;gap:12px;padding:12px;min-height:0}
-#mapa{flex:2.2;position:relative;background:#e8f7f6;border-radius:16px;overflow:hidden}
-.mesa{position:absolute;transform:translate(-50%,-50%);background:#fff;color:#06344a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;border:2px solid #2bb3b1;box-shadow:0 2px 6px rgba(0,0,0,.2);cursor:pointer;border-radius:6px}
-.mesa.redonda{border-radius:50%}.mesa .b{position:absolute;top:-22px;font-size:20px;display:none}
-.mesa.on{background:#ff7a59;color:#fff;border-color:#fff;animation:p 1s infinite;z-index:2}.mesa.on .b{display:block}
-@keyframes p{50%{box-shadow:0 0 0 12px rgba(255,122,89,.35)}}
-aside{flex:1;background:#0a4560;border-radius:16px;padding:12px;overflow:auto;min-width:240px}aside h2{font-size:16px;margin-bottom:8px}
-.item{background:#fff;color:#06344a;border-radius:12px;padding:10px;margin-bottom:8px}.item b{font-size:18px}
-.item button{margin-top:6px;width:100%;padding:10px;border:none;border-radius:10px;background:#25a36a;color:#fff;font-weight:700;font-size:15px}
-#login{position:fixed;inset:0;background:rgba(6,52,74,.95);display:flex;align-items:center;justify-content:center;z-index:9}
-#login form{background:#fff;color:#06344a;padding:24px;border-radius:16px;width:300px}#login input,#login button{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ccc;font-size:16px}
-#login button{background:#0b6e7f;color:#fff;border:none;font-weight:700}
-</style></head><body>
-<header><h1>🔔 Refugio Marino · Llamados</h1><span id="estado">Desconectado</span></header>
-<div class="wrap"><div id="mapa"></div><aside><h2>Llamados pendientes</h2><div id="lista"><p style="opacity:.7">Sin llamados 🌊</p></div></aside></div>
-<div id="login"><form onsubmit="entrar(event)"><h3>Panel de caja</h3><input id="em" type="email" placeholder="Correo del personal" required><input id="pw" type="password" placeholder="Contraseña" required><button>Entrar</button><p id="lerr" style="color:#b04a2f;font-size:13px;margin-top:8px"></p><p style="font-size:12px;margin-top:8px;opacity:.7">Panel de respaldo. Requiere usuario con rol admin/cajero/mesero.</p></form></div>
+:root{
+  --font-marca:"Kaushan Script",cursive;   /* misma letra de marca del prototipo (refugio-marino-backend/prototipo) */
+  --navy:#0B3C5D;
+  --font-ui:Tahoma,Verdana,"Segoe UI",sans-serif;   /* todo lo demás */
+  --teal:#1F867E;                                 /* fondo del logo */
+  --fondo:#F1F2F4; --card:#FFFFFF; --borde:#E3E5E8; --txt:#14263A; --muted:#5B6878; --azul:#0B3C5D; --azul-osc:#072B44;
+  /* Colores de estado: los mismos del mapa en vivo de Arquitecto Tools (EC en mapa.js) */
+  --libre-f:#E3F4EA; --libre-s:#2E8B57; --libre-t:#1C6B43;
+  --res-f:#FFF1CC;   --res-s:#C98A12;   --res-t:#8C5D00;
+  --ocu-f:#FBE0DA;   --ocu-s:#D2452F;   --ocu-t:#A23422;
+  --fs-f:#ECEEF1;    --fs-s:#9AA3AE;    --fs-t:#5B6878;
+  --llamado:#0B3C5D;
+  --t:96px;          /* tamaño de mesa (lo recalcula el JS) */
+  --gap:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-ui);background:var(--fondo);color:var(--txt);display:flex;flex-direction:column;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- Encabezado ---------- */
+header{display:flex;align-items:center;gap:18px;padding:8px 22px;background:#fff;color:var(--teal);border-bottom:1px solid var(--borde);box-shadow:0 2px 10px rgba(11,60,93,.08)}
+.marca{display:flex;align-items:center;gap:12px;min-width:0}
+.marca img{height:58px;width:58px;display:block;border-radius:50%}
+.marca img.vacio{display:none}
+.marca h1{font-family:var(--font-marca);font-weight:400;font-size:32px;color:var(--navy);line-height:1.1;white-space:nowrap}
+.marca small{display:block;font-family:var(--font-ui);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-top:2px;font-weight:700}
+.esp{margin-left:auto}
+.chips{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.leyenda .chip{font-size:17px;padding:9px 18px;gap:10px}.leyenda .chip i{width:14px;height:14px}.leyenda .chip{font-weight:400}.leyenda .chip b{font-size:19px;font-weight:400}
+.chip{border-radius:999px;padding:7px 14px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.chip i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.chip.libre{background:var(--libre-f);color:var(--libre-t)}.chip.libre i{background:var(--libre-s)}
+.chip.reservada{background:var(--res-f);color:var(--res-t)}.chip.reservada i{background:var(--res-s)}
+.chip.ocupada{background:var(--ocu-f);color:var(--ocu-t)}.chip.ocupada i{background:var(--ocu-s)}
+.chip.llam{background:var(--llamado);color:#fff}
+.estado{font-size:13px;color:var(--teal);font-weight:600;white-space:nowrap}
+#btnSonido{border:1.5px solid var(--teal);background:#fff;color:var(--teal);border-radius:12px;padding:8px 12px;font-size:18px}
+
+/* ---------- Cuerpo ---------- */
+.wrap{flex:1;display:flex;gap:var(--gap);padding:var(--gap);min-height:0}
+#mapa{flex:1;display:grid;grid-template-columns:repeat(var(--mc,3),minmax(0,1fr));grid-template-rows:repeat(var(--mr,2),minmax(0,1fr));gap:var(--gap);min-width:0;min-height:0}
+.salon{min-height:0;overflow:hidden;background:var(--card);border:1px solid var(--borde);border-radius:18px;box-shadow:0 4px 18px rgba(11,60,93,.06);padding:14px 14px 16px;display:flex;flex-direction:column;min-width:0}
+.salon h2{font-family:var(--font-ui);font-size:26px;font-weight:700;color:var(--azul);margin-bottom:12px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:baseline;gap:8px}
+.salon h2 span{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--muted)}
+.grilla{flex:1;display:grid;gap:calc(var(--t)*.16);justify-content:center;align-content:center;grid-auto-columns:var(--t);grid-auto-rows:var(--t)}
+/* Mesa estilo POS: baldosa blanca, mesa gris al centro, sillas como barras, estado en la línea inferior */
+.mesa{width:var(--t);height:var(--t);border-radius:12px;background:#fff;border:1px solid #ECEEF1;box-shadow:0 3px 10px rgba(20,38,58,.10);
+  position:relative;user-select:none;overflow:visible;--linea:var(--libre-s)}
+.mesa::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:max(5px,calc(var(--t)*.06));background:var(--linea);border-radius:0 0 12px 12px}
+.mesa.reservada{--linea:var(--res-s)}.mesa.ocupada{--linea:var(--ocu-s)}.mesa.fuera_servicio{--linea:var(--fs-s);opacity:.7}
+.mesa .forma{position:absolute;left:23%;right:23%;top:19%;bottom:25%;background:#D9D9D9;border-radius:10%;display:flex;align-items:center;justify-content:center;
+  color:#2B2F33;font-weight:700;font-size:calc(var(--t)*.26);transition:background .3s,color .3s}
+.mesa .s{position:absolute;background:#D9D9D9;border-radius:99px}
+.mesa .b{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.25);display:none;align-items:center;justify-content:center;font-size:22px;z-index:3}
+.mesa.llamando{animation:llama 1.1s ease-in-out infinite;z-index:2;cursor:pointer;border-color:var(--llamado)}
+.mesa.llamando .forma{animation:llamaf 1.1s ease-in-out infinite}
+.mesa.llamando .b{display:flex;animation:campana 1.1s ease-in-out infinite}
+@keyframes llamaf{0%,100%{background:#D9D9D9;color:#2B2F33}50%{background:var(--llamado);color:#fff}}
+@keyframes llama{0%,100%{box-shadow:0 0 0 0 rgba(11,60,93,.55),0 3px 10px rgba(20,38,58,.10)}50%{box-shadow:0 0 0 12px rgba(11,60,93,0),0 3px 10px rgba(20,38,58,.10);background:#E6EEF4}}
+@keyframes campana{0%,100%{transform:rotate(0)}20%{transform:rotate(-18deg)}40%{transform:rotate(14deg)}60%{transform:rotate(-8deg)}}
+
+/* ---------- Leyenda ---------- */
+.leyenda{display:flex;gap:28px;align-items:center;padding:10px 26px;background:#fff;border-top:1px solid var(--borde);font-size:16px;font-weight:400;color:var(--txt)}
+.leyenda span{display:flex;align-items:center;gap:10px}.leyenda i{width:22px;height:22px;border-radius:50%;display:inline-block}
+/* ---------- Llamados ---------- */
+aside{width:260px;flex:none;display:none !important;background:var(--card);border:1px solid var(--borde);border-radius:18px;box-shadow:0 4px 18px rgba(11,60,93,.06);padding:16px;display:flex;flex-direction:column;min-height:0}
+body.con-llamados aside{display:flex !important}
+aside h2{font-family:var(--font-ui);font-weight:700;font-size:24px;color:var(--navy);margin-bottom:10px}
+#lista{overflow:auto;flex:1}
+.vacio-l{color:var(--muted);font-size:15px;text-align:center;margin-top:30px;line-height:1.6}
+.item{border:2px solid var(--llamado);border-radius:14px;padding:12px;margin-bottom:10px;background:#F4F8FB}
+.item .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.item b{font-size:22px;color:var(--azul-osc);white-space:nowrap}.item .sal{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .sal{font-size:13px;color:var(--muted);font-weight:600}
+.item .tipo{font-size:16px;font-weight:700;margin-top:4px}
+.item small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.item button{margin-top:10px;width:100%;padding:12px;border:none;border-radius:12px;background:var(--libre-s);color:#fff;font-weight:800;font-size:16px}
+
+/* ---------- Capas ---------- */
+.capa{position:fixed;inset:0;background:rgba(241,242,244,.97);display:flex;align-items:center;justify-content:center;z-index:9}
+.capa .caja{background:#fff;border:1px solid var(--borde);border-radius:20px;box-shadow:0 10px 40px rgba(11,60,93,.12);padding:28px;width:340px;text-align:center}
+.capa h3{font-family:var(--font-marca);font-weight:400;font-size:32px;color:var(--navy);margin-bottom:4px}
+.capa p{color:var(--muted);font-size:14px}
+.capa input,.capa button{width:100%;padding:13px;margin-top:12px;border-radius:12px;border:1px solid #cfd4da;font-size:16px;font-family:inherit}
+.capa button{background:var(--azul);color:#fff;border:none;font-weight:700}
+#lerr{color:#A23422;font-size:13px;margin-top:8px}
+#activar .caja{width:380px}#activar button{font-size:20px;padding:18px}
+</style>
+</head>
+<body>
+<header>
+  <div class="marca">
+    <!-- Logo: logo.png junto a panel.html -->
+    <img id="logo" src="logo.png" alt="Refugio Marino">
+    <div><h1>Refugio Marino - Atención</h1></div>
+  </div>
+  <span class="esp"></span>
+  <button id="btnSonido" title="Sonido">🔇</button>
+  <span class="estado" id="estado">Desconectado</span>
+</header>
+
+<div class="wrap">
+  <div id="mapa"></div>
+  <aside><h2>🔔 Llamados</h2><div id="lista"></div></aside>
+</div>
+<footer class="leyenda chips" id="chips"></footer>
+
+<div class="capa" id="login"><form class="caja" onsubmit="entrar(event)">
+  <h3>Refugio Marino</h3><p>Panel de caja</p>
+  <input id="em" type="email" placeholder="Correo del personal" autocomplete="username" required>
+  <input id="pw" type="password" placeholder="Contraseña" autocomplete="current-password" required>
+  <button>Entrar</button><p id="lerr"></p>
+</form></div>
+
+<div class="capa" id="activar" style="display:none"><div class="caja">
+  <h3>¡Listo!</h3><p>Toca el botón para que el panel pueda sonar cuando un cliente llame al mesero.</p>
+  <button id="btnActivar">🔔 Activar sonido</button>
+</div></div>
+
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const SUPABASE_URL='https://idhxedaebgkyfvmliwfv.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkaHhlZGFlYmdreWZ2bWxpd2Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTUxMDIsImV4cCI6MjEwNjg5MTEwMn0.SzjXSfI8z_6rKpXqloAzZz9ylTtMKTuBRMYjbhGjVrs';
 const RESTAURANTE_ID=1;
-const TIPOS={mesero:'🙋 Mesero',cuenta:'🧾 Cuenta',servilletas:'🍴 Servilletas',otro:'💬 Otro'};
-const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-let MESAS=[],pend=[];const $=id=>document.getElementById(id);
-const nombre=id=>(MESAS.find(m=>m.id===id)||{}).nombre||('#'+id);
-function dibujar(){const mapa=$('mapa');mapa.innerHTML='';if(!MESAS.length)return;
- const pad=40,minX=Math.min(...MESAS.map(m=>m.pos_x-m.ancho/2))-pad,maxX=Math.max(...MESAS.map(m=>m.pos_x+m.ancho/2))+pad,
- minY=Math.min(...MESAS.map(m=>m.pos_y-m.alto/2))-pad,maxY=Math.max(...MESAS.map(m=>m.pos_y+m.alto/2))+pad;
- const W=mapa.clientWidth,H=mapa.clientHeight,k=Math.min(W/(maxX-minX),H/(maxY-minY)),ox=(W-(maxX-minX)*k)/2,oy=(H-(maxY-minY)*k)/2;
- MESAS.forEach(m=>{const d=document.createElement('div');d.className='mesa'+(m.forma==='redonda'?' redonda':'');d.id='m'+m.id;
-  Object.assign(d.style,{left:ox+(m.pos_x-minX)*k+'px',top:oy+(m.pos_y-minY)*k+'px',width:Math.max(m.ancho*k,34)+'px',height:Math.max(m.alto*k,34)+'px',transform:`translate(-50%,-50%) rotate(${m.rotacion||0}deg)`});
-  d.title=(m.zona||'');d.innerHTML='<span class="b">🔔</span>'+m.nombre;d.onclick=()=>{const c=pend.find(p=>p.mesa_id===m.id);if(c)atender(c.id)};mapa.appendChild(d)});render()}
-addEventListener('resize',dibujar);
-let ac;function beep(){try{ac=ac||new AudioContext();[0,.25].forEach(t=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.3,ac.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+.2);o.start(ac.currentTime+t);o.stop(ac.currentTime+t+.2)})}catch(e){}}
-document.body.addEventListener('pointerdown',()=>{ac=ac||new AudioContext();ac.resume()},{once:true});
-const hace=t=>{const s=Math.floor((Date.now()-new Date(t))/1000);return s<60?s+' s':Math.floor(s/60)+' min'};
-function render(){MESAS.forEach(m=>{const d=$('m'+m.id);if(d)d.classList.toggle('on',pend.some(p=>p.mesa_id===m.id))});
- $('lista').innerHTML=pend.length?pend.map(p=>`<div class="item"><b>Mesa ${nombre(p.mesa_id)}</b> · ${TIPOS[p.tipo]}<br><small>hace ${hace(p.creado)}${p.nota?' · “'+p.nota.replace(/</g,'&lt;')+'”':''}</small><button onclick="atender(${p.id})">✔ Atendida</button></div>`).join(''):'<p style="opacity:.7">Sin llamados 🌊</p>'}
+const RECORDAR_CADA_S=30;   // vuelve a sonar (más suave) si hay llamados sin atender
+const TIPOS={mesero:'🙋 Llamar mesero',cuenta:'🧾 Pedir la cuenta',servilletas:'🍴 Servilletas',otro:'💬 Otro'};
+const ESTADO={disponible:'libre',libre:'libre',reservada:'reservada',ocupada:'ocupada',fuera_servicio:'fuera_servicio'};
+const $=id=>document.getElementById(id);
+const MOCK=window.__MOCK__||null;
+let sb=null;
+if(!MOCK){const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2');sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);}
+
+let MESAS=[],EST={},pend=[];
+const salonNum=m=>parseInt((m.nombre.match(/^S(\d+)/i)||[])[1]||0);
+const numMesa=m=>{const p=m.nombre.split('-');const n=parseInt(p[1]);return isNaN(n)?m.nombre:String(n)};
+const nombreSalon=n=>{const m=MESAS.find(x=>salonNum(x)===n);return m&&m.zona?m.zona:'Salón '+n};
+const mesa=id=>MESAS.find(m=>m.id===id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Sillas alrededor de la mesa según capacidad (por defecto 4): 1 a cada lado, el resto arriba/abajo */
+function sillas(cap){const n=Math.max(1,parseInt(cap)||4);let l=0,r=0,t=0,b=0;
+  if(n<=2){t=1;b=n-1}else{l=1;r=1;const k=n-2;t=Math.ceil(k/2);b=Math.floor(k/2);if(n>=8){l=r=Math.floor((n-4)/4)+1;const k2=n-l-r;t=Math.ceil(k2/2);b=Math.floor(k2/2)}}
+  const fila=(cnt,lado)=>{let h='';for(let i=0;i<cnt;i++){const tam=cnt===1?30:Math.min(24,46/cnt),ini=50-(cnt*tam+(cnt-1)*6)/2+i*(tam+6);
+    if(lado==='t')h+=`<i class="s" style="top:9%;height:5%;left:${ini}%;width:${tam}%"></i>`;
+    if(lado==='b')h+=`<i class="s" style="bottom:15%;height:5%;left:${ini}%;width:${tam}%"></i>`;
+    if(lado==='l')h+=`<i class="s" style="left:12%;width:5%;top:${ini-3}%;height:${tam}%"></i>`;
+    if(lado==='r')h+=`<i class="s" style="right:12%;width:5%;top:${ini-3}%;height:${tam}%"></i>`}return h};
+  return fila(t,'t')+fila(b,'b')+fila(l,'l')+fila(r,'r')}
+/* ---- Salones en orden 1…6 en cuadrícula uniforme; mismas columnas de mesas en todas las tarjetas ---- */
+const COLS_MESAS=3,K=.16;        // columnas de mesas por salón y separación (×t)
+function dibujar(){
+  const mapa=$('mapa');mapa.innerHTML='';if(!MESAS.length)return;
+  const salones=[...new Set(MESAS.map(salonNum))].sort((a,b)=>a-b),L=salones.length;
+  const vertical=mapa.clientHeight>mapa.clientWidth*1.1;
+  const mc=vertical?2:Math.min(3,L),mr=Math.ceil(L/mc);
+  document.documentElement.style.setProperty('--mc',mc);document.documentElement.style.setProperty('--mr',mr);
+  const filasMesas=Math.max(...salones.map(n=>Math.ceil(MESAS.filter(m=>salonNum(m)===n).length/COLS_MESAS)));
+  salones.forEach(n=>{const ms=MESAS.filter(m=>salonNum(m)===n).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es',{numeric:true}));
+    const card=document.createElement('section');card.className='salon';card.innerHTML=`<h2>${esc(nombreSalon(n))}</h2>`;
+    const gr=document.createElement('div');gr.className='grilla';gr.style.gridTemplateColumns=`repeat(${COLS_MESAS},var(--t))`;gr.style.gridTemplateRows=`repeat(${filasMesas},var(--t))`;
+    ms.forEach(m=>{const d=document.createElement('div');d.id='m'+m.id;d.className='mesa';d.innerHTML=`<span class="b">🔔</span>${sillas(m.capacidad)}<div class="forma">${numMesa(m)}</div>`;d.title=m.nombre;
+      d.onclick=()=>{const x=pend.find(p=>p.mesa_id===m.id);if(x)atender(x.id)};gr.appendChild(d)});
+    card.appendChild(gr);mapa.appendChild(card)});
+  /* tamaño único: el mayor que quepa en una tarjeta (todas miden igual) */
+  const c=mapa.firstElementChild,cs=getComputedStyle(c),h2=c.querySelector('h2');
+  const iw=c.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-10;   // margen para la campana
+  const ih=c.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-h2.offsetHeight-parseFloat(getComputedStyle(h2).marginBottom)-16;
+  const t=Math.floor(Math.min(iw/(COLS_MESAS+(COLS_MESAS-1)*K),ih/(filasMesas+(filasMesas-1)*K)));
+  document.documentElement.style.setProperty('--t',Math.max(40,t)+'px');
+  pintar();render()}
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(dibujar,150)});
+
+/* ---- Estado de mesas (libre / reservada / ocupada) ---- */
+function pintar(){const c={libre:0,reservada:0,ocupada:0};
+  MESAS.forEach(m=>{const e=ESTADO[EST[m.id]]||'libre',d=$('m'+m.id);if(c[e]!=null)c[e]++;
+    if(d){d.classList.remove('libre','reservada','ocupada','fuera_servicio');d.classList.add(e)}});
+  $('chips').innerHTML=`<span class="chip libre"><i></i>Libres <b>${c.libre}</b></span><span class="chip reservada"><i></i>Reservadas <b>${c.reservada}</b></span><span class="chip ocupada"><i></i>Ocupadas <b>${c.ocupada}</b></span><span class="chip llam">🔔 Llamando <b>${pend.length}</b></span>`}
+
+/* ---- Sonido (WebAudio, sin archivos) ---- */
+let ac=null,sonidoOn=false;
+function campanita(vol=1){if(!ac||ac.state!=='running')return;const t0=ac.currentTime+.02,out=ac.createGain();out.gain.value=.55*vol;out.connect(ac.destination);
+  [[1046.5,0],[1318.5,.13],[1568,.26],[2093,.42]].forEach(([f,dt],i)=>{
+    [[1,1],[2.76,.18],[5.4,.06]].forEach(([h,a])=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f*h;
+      const t=t0+dt,dur=i===3?1.1:.55;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(a*(i===3?.9:.7),t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dur/h**.3);
+      o.connect(g);g.connect(out);o.start(t);o.stop(t+dur+.05)})})}
+async function activarSonido(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();await ac.resume();sonidoOn=ac.state==='running'}catch(e){sonidoOn=false}
+  $('btnSonido').textContent=sonidoOn?'🔊':'🔇';$('activar').style.display='none';if(sonidoOn)campanita(.6)}
+$('btnActivar').onclick=activarSonido;
+$('btnSonido').onclick=()=>{if(sonidoOn&&ac){ac.suspend();sonidoOn=false;$('btnSonido').textContent='🔇'}else activarSonido()};
+function avisar(){campanita(1);navigator.vibrate&&navigator.vibrate([250,120,250])}
+setInterval(()=>{if(pend.length&&sonidoOn)campanita(.5)},RECORDAR_CADA_S*1000);
+
+/* ---- Llamados ---- */
+const hace=t=>{const s=Math.max(0,Math.floor((Date.now()-new Date(t))/1000));return s<60?s+' s':Math.floor(s/60)+' min'};
+function render(){
+  const hay=pend.length>0;if(document.body.classList.contains('con-llamados')!==hay){document.body.classList.toggle('con-llamados',hay);dibujar();return}
+  MESAS.forEach(m=>{const d=$('m'+m.id);if(d)d.classList.toggle('llamando',pend.some(p=>p.mesa_id===m.id))});
+  $('lista').innerHTML=pend.length?pend.map(p=>{const m=mesa(p.mesa_id)||{nombre:'#'+p.mesa_id};
+    return `<div class="item"><div class="top"><b>Mesa ${esc(m.zona?numMesa(m):m.nombre)}</b><span class="sal">${esc(m.zona||'')}</span></div>
+    <div class="tipo">${TIPOS[p.tipo]||esc(p.tipo)}</div><small>hace ${hace(p.creado)}${p.nota?' · “'+esc(p.nota)+'”':''}</small>
+    <button onclick="atender(${p.id})">✔ Atendida</button></div>`}).join(''):'<p class="vacio-l">Sin llamados pendientes 🌊<br>Cuando un cliente toque la etiqueta,<br>la mesa parpadeará aquí.</p>';
+  pintar()}
 setInterval(render,1000);
-window.atender=async id=>{pend=pend.filter(p=>p.id!==id);render();await sb.from('llamados').update({atendido_en:new Date().toISOString()}).eq('id',id).is('atendido_en',null)};
-async function cargar(){
- const {data:ms}=await sb.from('mesas').select('id,nombre,zona,pos_x,pos_y,ancho,alto,rotacion,forma').eq('restaurante_id',RESTAURANTE_ID).eq('activa',true).order('nombre');MESAS=ms||[];dibujar();
- const {data}=await sb.from('llamados').select('*').eq('restaurante_id',RESTAURANTE_ID).is('atendido_en',null).order('creado');pend=data||[];render()}
-function conectar(){sb.channel('llamados-panel').on('postgres_changes',{event:'*',schema:'public',table:'llamados',filter:'restaurante_id=eq.'+RESTAURANTE_ID},p=>{
- if(p.eventType==='INSERT'&&!p.new.atendido_en){pend.push(p.new);beep();navigator.vibrate&&navigator.vibrate([300,100,300])}
- if(p.eventType==='UPDATE'&&p.new.atendido_en)pend=pend.filter(x=>x.id!==p.new.id);render()})
- .on('postgres_changes',{event:'*',schema:'public',table:'mesas'},()=>cargar())
- .subscribe(s=>{$('estado').textContent=s==='SUBSCRIBED'?'🟢 En vivo':'🟠 '+s;if(s==='SUBSCRIBED')cargar()})}
-window.entrar=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:em.value,password:pw.value});if(error){lerr.textContent='Datos incorrectos';return}$('login').remove();conectar()};
-const {data}=await sb.auth.getSession();if(data.session){$('login').remove();conectar()}
-</script></body></html>
+window.atender=async id=>{pend=pend.filter(p=>p.id!==id);render();if(sb)await sb.from('llamados').update({atendido_en:new Date().toISOString()}).eq('id',id).is('atendido_en',null)};
+
+/* ---- Datos ---- */
+async function cargarMesas(){const {data}=await sb.from('mesas').select('id,nombre,zona,capacidad,forma,estado').eq('restaurante_id',RESTAURANTE_ID).eq('activa',true).order('nombre');
+  MESAS=data||[];MESAS.forEach(m=>EST[m.id]=m.estado);dibujar()}
+async function cargarEstados(){if(!MESAS.length)return;
+  const {data,error}=await sb.from('v_mesas_estado_actual').select('id,estado_efectivo').in('id',MESAS.map(m=>m.id));
+  if(!error&&data)data.forEach(r=>EST[r.id]=r.estado_efectivo);pintar()}
+async function cargarLlamados(){const {data}=await sb.from('llamados').select('*').eq('restaurante_id',RESTAURANTE_ID).is('atendido_en',null).order('creado');pend=data||[];render()}
+let deb;const refrescarEstados=()=>{clearTimeout(deb);deb=setTimeout(cargarEstados,400)};
+function conectar(){
+  sb.channel('panel-caja')
+   .on('postgres_changes',{event:'*',schema:'public',table:'llamados',filter:'restaurante_id=eq.'+RESTAURANTE_ID},p=>{
+     if(p.eventType==='INSERT'&&!p.new.atendido_en&&!pend.some(x=>x.id===p.new.id)){pend.push(p.new);avisar()}
+     if(p.eventType==='UPDATE'&&p.new.atendido_en)pend=pend.filter(x=>x.id!==p.new.id);render()})
+   .on('postgres_changes',{event:'*',schema:'public',table:'mesas'},p=>{const n=p.new||{};
+     if(p.eventType==='UPDATE'&&MESAS.some(m=>m.id===n.id)&&['nombre','zona','pos_x','pos_y','forma','activa'].every(k=>mesa(n.id)[k]===n[k]||k==='activa'&&n.activa)){mesa(n.id).estado=n.estado;refrescarEstados()}
+     else cargarMesas().then(cargarEstados)})
+   .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},refrescarEstados)
+   .on('postgres_changes',{event:'*',schema:'public',table:'ordenes'},refrescarEstados)
+   .subscribe(s=>{$('estado').textContent=s==='SUBSCRIBED'?'🟢 En vivo':'🟠 Reconectando…';if(s==='SUBSCRIBED'){cargarMesas().then(cargarEstados);cargarLlamados()}});
+  setInterval(cargarEstados,60000);   // las reservas pasan a "reservada" por horario
+}
+function listo(){$('login').remove();$('activar').style.display='flex';}
+window.entrar=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('em').value,password:$('pw').value});
+  if(error){$('lerr').textContent='Correo o contraseña incorrectos';return}listo();conectar()};
+
+if(MOCK){MESAS=MOCK.mesas;MOCK.mesas.forEach(m=>EST[m.id]=m.estado);pend=MOCK.llamados||[];$('login').remove();
+  if(!MOCK.mostrarActivar)$('activar').style.display='none';else $('activar').style.display='flex';$('estado').textContent='🟢 En vivo';dibujar()}
+else{const {data}=await sb.auth.getSession();if(data.session){listo();conectar()}}
+</script>
+</body>
+</html>
