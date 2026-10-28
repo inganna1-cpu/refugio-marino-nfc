@@ -1,15 +1,30 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Refugio Marino · Restaurante campestre pescadería</title>
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Refugio Marino · Restaurante campestre pescadería</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
 <style>
-:root{--deep:#06344a;--sea:#0b6e7f;--aqua:#2bb3b1;--foam:#e8f7f6;--sand:#f6eddc;--coral:#ff7a59;--txt:#12303d}
+:root{--navy:#0B3C5D;--teal:#1F867E;--deep:#06344a;--sea:#0b6e7f;--aqua:#2bb3b1;--foam:#e8f7f6;--sand:#f6eddc;--coral:#ff7a59;--txt:#12303d}
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,#e6f6f6,#f6eddc);color:var(--txt);min-height:100vh}
-header{background:linear-gradient(160deg,var(--deep),var(--sea) 70%,var(--aqua));color:#fff;padding:28px 20px 46px;text-align:center;position:relative;overflow:hidden}
-header h1{font-family:"Brush Script MT","Segoe Script",cursive;font-size:44px;font-weight:400;letter-spacing:1px}header p{opacity:.85;font-size:14px;margin-top:4px}
-.mesa-tag{display:inline-block;margin-top:10px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:20px;font-size:13px}
+header{background:linear-gradient(160deg,var(--navy),var(--teal) 75%);color:#fff;padding:22px 20px 48px;text-align:center;position:relative;overflow:hidden}
+header .logo{width:76px;height:76px;border-radius:50%;display:block;margin:0 auto 6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+header h1{font-family:"Kaushan Script","Brush Script MT",cursive;font-size:42px;font-weight:400;line-height:1.1}header p{opacity:.85;font-size:14px;margin-top:4px}
+.mesa-tag{display:inline-flex;flex-direction:column;align-items:center;margin-top:14px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);padding:8px 26px 10px;border-radius:18px;line-height:1}
+.mesa-tag small{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.9;font-weight:700}
+.mesa-tag b{font-size:46px;font-weight:800;letter-spacing:1px;margin-top:4px}
+.mesa-tag.sin{font-size:16px;padding:8px 18px;font-weight:600}
 .wave{position:absolute;bottom:-1px;left:0;width:100%;height:36px}
 main{max-width:520px;margin:-18px auto 0;padding:0 16px 40px;position:relative}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .btn{background:#fff;border:none;border-radius:20px;padding:20px 10px;box-shadow:0 6px 18px rgba(6,52,74,.12);text-align:center;font-size:15px;font-weight:600;color:var(--deep);cursor:pointer;text-decoration:none;display:block}
 .btn .ico{font-size:34px;display:block;margin-bottom:6px}.btn.wide{grid-column:span 2;background:linear-gradient(135deg,var(--sea),var(--aqua));color:#fff}
+.carta{grid-column:span 2;position:relative;overflow:hidden;border:none;border-radius:24px;padding:24px 20px;cursor:pointer;color:#fff;text-align:left;
+  background:linear-gradient(120deg,var(--navy) 0%,var(--teal) 100%);box-shadow:0 12px 28px rgba(11,60,93,.38);display:flex;align-items:center;gap:16px;animation:latido 2.6s ease-in-out infinite}
+.carta .ic{flex:none;width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:36px}
+.carta b{display:block;font-size:26px;font-weight:900;letter-spacing:1.5px}
+.carta small{display:block;font-size:14px;opacity:.9;margin-top:3px}
+.carta .fl{margin-left:auto;font-size:30px;font-weight:700;animation:fl 1.3s ease-in-out infinite}
+.carta::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:brillo 3.2s ease-in-out infinite}
+@keyframes brillo{0%,55%{left:-60%}100%{left:130%}}
+@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+@keyframes fl{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.carta,.carta::after,.carta .fl{animation:none}}
 .view{display:none}.view.on{display:block;animation:f .3s}@keyframes f{from{opacity:0;transform:translateY(8px)}}
 .back{background:none;border:none;color:var(--sea);font-weight:700;font-size:15px;margin:14px 0;cursor:pointer}
 .card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:14px}
@@ -18,6 +33,27 @@ h2{color:var(--deep);font-size:22px;margin-bottom:10px}
 .cats button{flex:none;border:2px solid var(--aqua);background:#fff;color:var(--sea);border-radius:20px;padding:8px 14px;font-weight:600;cursor:pointer}
 .cats button.on{background:var(--sea);border-color:var(--sea);color:#fff}
 .dish{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:16px}
+.foto{position:relative;height:190px;cursor:pointer;background:#e9eef0;overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}.foto:active img{transform:scale(1.04)}
+.foto .hint{position:absolute;right:10px;bottom:10px;background:rgba(11,60,93,.85);color:#fff;font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:999px;backdrop-filter:blur(4px)}
+/* Infografía de ingredientes */
+.ov{display:none;position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 45%,#165A86,#06263C);display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.on{opacity:1;pointer-events:auto}
+.ov .x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:22px;cursor:pointer;z-index:3}
+.ov .ovh{color:#fff;text-align:center;padding:18px 60px 0;width:100%}
+.ov .ovh h3{font-family:"Kaushan Script",cursive;font-weight:400;font-size:28px;line-height:1.15}
+.ov .ovh p{font-size:12.5px;opacity:.75;margin-top:4px}
+#ingStage{position:relative;flex:1;width:min(100vw,520px)}
+#ingSvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.7))}
+#ingSvg path{fill:none;stroke:#BFF3EC;stroke-width:2;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);transition:stroke-dashoffset .6s ease-out}
+.ov.on #ingSvg path{stroke-dashoffset:0}
+#ingImg{position:absolute;z-index:1;border-radius:20px;object-fit:cover;box-shadow:0 0 0 3px rgba(142,227,218,.35),0 20px 50px rgba(0,0,0,.45);transform:scale(.85);opacity:0;transition:transform .45s cubic-bezier(.2,.9,.3,1.2),opacity .3s}
+.ov.on #ingImg{transform:scale(1);opacity:1}
+.pin{position:absolute;z-index:3;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;border:3px solid var(--teal);box-shadow:0 0 0 0 rgba(142,227,218,.8);opacity:0;transition:opacity .3s;animation:pin 1.8s ease-out infinite}
+.ov.on .pin{opacity:1}
+@keyframes pin{0%{box-shadow:0 0 0 0 rgba(142,227,218,.8)}100%{box-shadow:0 0 0 14px rgba(142,227,218,0)}}
+.lbl{position:absolute;z-index:3;transform:translate(-50%,-50%) scale(.6);opacity:0;background:#fff;color:var(--navy);font-weight:800;font-size:13.5px;line-height:1.2;text-align:center;padding:8px 12px;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .4s cubic-bezier(.2,.9,.3,1.3),opacity .3s;border-bottom:3px solid var(--teal)}
+.ov.on .lbl{transform:translate(-50%,-50%) scale(1);opacity:1}
 .ph{height:150px;background:linear-gradient(135deg,#bfe7e5,#0b6e7f);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-size:13px;opacity:.95}.ph span{font-size:38px}
 .dish .b{padding:14px 16px}.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .dish h3{font-size:17px;color:var(--deep)}.price{font-weight:800;color:var(--coral);white-space:nowrap}
@@ -31,16 +67,15 @@ input{width:100%;padding:14px;border-radius:12px;border:2px solid #cfe5e4;font-s
 canvas{width:100%;border-radius:16px;background:linear-gradient(#7fd3e0,#0b4f6c);touch-action:none;display:block}
 footer{text-align:center;font-size:12px;color:#5b7a85;padding:20px}
 </style></head><body>
-<header><h1>Refugio Marino</h1><p>Restaurante campestre · pescadería</p><div class="mesa-tag" id="mesaTag">Bienvenido 🌊</div>
+<header><img class="logo" src="logo.png" alt=""><h1>Refugio Marino</h1><p>Restaurante campestre · pescadería</p><div class="mesa-tag sin" id="mesaTag">Bienvenido 🌊</div>
 <svg class="wave" viewBox="0 0 400 36" preserveAspectRatio="none"><path d="M0 20 Q50 0 100 20 T200 20 T300 20 T400 20 V36 H0Z" fill="#e6f6f6"/></svg></header>
 <main>
 <section class="view on" id="v-home"><div class="grid">
-<button class="btn wide" onclick="go('menu')"><span class="ico">📖</span>Ver la carta</button>
+<button class="carta" onclick="go('menu')"><span class="ic">📖</span><span><b>VER CARTA</b><small>Platos, bebidas y fotos</small></span><span class="fl">›</span></button>
 <button class="btn" onclick="go('mesero')"><span class="ico">🙋</span>Llamar al mesero</button>
-<button class="btn" disabled style="opacity:.5;cursor:default"><span class="ico">📶</span>Wifi<br><small>Próximamente</small></button>
 <button class="btn" onclick="go('redes')"><span class="ico">📱</span>Redes sociales</button>
 <a class="btn" id="resenaBtn" href="#" onclick="return resena()"><span class="ico">⭐</span>Déjanos tu reseña</a>
-<button class="btn wide" onclick="go('juego')" style="background:linear-gradient(135deg,#ff9a6b,var(--coral))"><span class="ico">🐠</span>Juego: Atrapa los peces</button>
+<button class="btn" onclick="go('juego')" style="background:linear-gradient(135deg,#ff9a6b,var(--coral));color:#fff"><span class="ico">🐠</span>Juego: Atrapa los peces</button>
 </div>
 <div class="card" style="margin-top:16px;text-align:center"><b>Reservas y eventos</b><p style="font-size:14px;margin-top:6px">Atendemos reuniones sociales, familiares y empresariales en salón de eventos. 🎂 Tenemos protocolo de cumpleaños. 🚗 Estacionamiento disponible.</p><a class="cta alt" href="https://wa.me/573107689859?text=Hola%2C%20quiero%20hacer%20una%20reserva">Reservar: 310 768 9859</a></div>
 </section>
@@ -64,18 +99,16 @@ footer{text-align:center;font-size:12px;color:#5b7a85;padding:20px}
 <a class="cta alt" style="background:#111" href="https://www.tiktok.com/@refugiomarino.bog">TikTok · @refugiomarino.bog</a>
 </div></section>
 
-<section class="view" id="v-wifi"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>📶 Wifi</h2>
-<p>Red: <b id="ssid">[PENDIENTE: nombre de la red]</b></p><p style="margin-top:8px">Clave: <b id="pass">[PENDIENTE: clave]</b></p>
-<button class="cta alt" onclick="copiar()">Copiar clave</button><p id="ok" class="note" style="margin-top:8px"></p></div></section>
 
 <section class="view" id="v-juego"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>🐠 Atrapa los peces</h2><p class="note">Toca los peces antes de que escapen. ¡Evita los cangrejos! 30 segundos.</p>
 <canvas id="cv" width="360" height="420"></canvas><p style="margin-top:8px;text-align:center"><b id="score">Puntos: 0</b> · <span id="time">30s</span></p><button class="cta alt" onclick="startGame()">Jugar</button></div></section>
+<div class="ov" id="ingOv" onclick="if(event.target===this||event.target.id==='ingStage')cerrarIng()"><button class="x" onclick="cerrarIng()" aria-label="Cerrar">✕</button><div class="ovh"><h3 id="ingT"></h3><p>Ingredientes · toca fuera para cerrar</p></div><div id="ingStage"><svg id="ingSvg"></svg><img id="ingImg" alt=""><div id="ingL"></div></div></div>
 <footer>Refugio Marino · Reservas 310 768 9859<br>Siempre se piensa en volver… 🌴</footer>
 </main>
 <script>
-const WA='573107689859', GOOGLE_REVIEW='[PENDIENTE]', WIFI={ssid:'[PENDIENTE]',pass:'[PENDIENTE]'};
+const WA='573107689859', GOOGLE_REVIEW='[PENDIENTE]';
 const MESA_RE=/^S\d{1,2}-\d{2}$/;const _m=(new URLSearchParams(location.search).get('mesa')||'').trim().toUpperCase();const mesa=MESA_RE.test(_m)?_m:null;
-if(mesa){document.getElementById('mesaTag').textContent='Mesa '+mesa+' · Bienvenido 🌊';document.getElementById('mesaIn').value=mesa}
+if(mesa){const t=document.getElementById('mesaTag');t.classList.remove('sin');t.innerHTML='<small>Mesa</small><b>'+mesa+'</b>';document.getElementById('mesaIn').value=mesa}
 function go(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));document.getElementById('v-'+v).classList.add('on');scrollTo(0,0);if(v==='menu'&&!document.getElementById('cats').children.length)buildMenu()}
 const BACKEND_URL='https://idhxedaebgkyfvmliwfv.supabase.co/functions/v1/llamar-mesero'; // ej: https://<ref>.supabase.co/functions/v1/llamar-mesero
 const TIPO_TXT={mesero:'necesito un mesero',cuenta:'quiero pedir la cuenta',servilletas:'necesito servilletas/cubiertos',otro:'necesito ayuda'};
@@ -94,7 +127,6 @@ if(!r.ok)throw 0;localStorage.setItem(k,Date.now());msg('✅ ¡Tu mesero ya vien
 catch(e){msg('No pudimos avisar automáticamente. Usa WhatsApp:','#b04a2f');document.getElementById('waFb').style.display='block'}}
 function mesero(){const m=mesaVal()||'__';const n=document.getElementById('notaIn').value.trim();location.href='https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, '+TIPO_TXT[ultimoTipo]+' en la mesa '+m+(n?'. '+n:''));return false}
 function resena(){if(GOOGLE_REVIEW.startsWith('['))alert('Enlace de reseña en Google [PENDIENTE]');else location.href=GOOGLE_REVIEW;return false}
-function copiar(){navigator.clipboard&&navigator.clipboard.writeText(WIFI.pass);document.getElementById('ok').textContent='¡Clave copiada!'}
 const S='Pregunte precio según tamaño';
 const MENU={
 'Entradas':{i:'🦐',d:[
@@ -152,11 +184,41 @@ const MENU={
 ['Cervezas',[['Club Dorada',9000],['Club Roja',9500],['Club Verde',9500],['Cerveza Corona',9500],['Cerveza Poker',8500],['Stella Artois',13000]]],
 ['Propuestas nuevas',[['Michelada',0],['Limonada cerezada',0],['Jugo de corozo',0],['Agua de panela con limón',0],['Mojito sin alcohol',0],['Coctel de la casa (piña colada)',0],['Café tinto / capuchino',0]],'Bebidas sugeridas para ampliar la carta.']]}
 };
+/* Fotos e ingredientes: [nombre, x%, y%] = punto del ingrediente sobre la foto */
+const FOTOS={
+'Ceviche de camarones Cumbiambero':{img:'ceviche-de-camarones-cumbiambero',ing:[['Camarones tigre',37,52],['Plumas de cebolla',18,60],['Cilantro',47,22],['Salsa de tomate',33,73]]},
+'Ceviche de Mango':{img:'ceviche-de-mango',ing:[['Camarones',45,24],['Mango',40,66],['Aguacate',55,85],['Cebolla morada',70,60],['Cilantro',58,37],['Chips de plátano',70,14]]},
+'Patacones con hogao':{img:'patacones-con-hogao',ing:[['Plátano verde',25,45],['Patacón crujiente',62,72],['Hogao criollo',66,22],['Tomate y cebolla',86,30]]},
+'Calamares y camarones al ajillo':{img:'calamares-y-camarones-al-ajillo',ing:[['Camarones tigre',32,26],['Paprika',57,40],['Mantequilla de ajo',48,62],['Aros de calamar',73,70]]},
+'Ceviche peruano':{img:'ceviche-peruano',ing:[['Cebolla morada',63,33],['Cilantro',30,38],['Platanitos',80,20],['Aguacate',73,50],['Pescado blanco',55,57],['Leche de tigre',22,72]]},
+'Aros de calamar rebosados':{img:'aros-de-calamar',ing:[['Limón',6,40],['Salsa de limón y almendras',80,26],['Rebozado crujiente',62,45],['Aros de calamar',40,78]]},
+'Chicharrón de Pirarucú (para compartir)':{img:'chicharron-de-pirarucu',ing:[['Limón',10,38],['Salsa artesanal',75,32],['Rebozado dorado',35,60],['Filete de pirarucú',68,72]]}};
+let ingAbierto=null;
+function verIng(n){const f=FOTOS[n];if(!f)return;ingAbierto=n;document.getElementById('ingT').textContent=n;const ov=document.getElementById('ingOv'),img=document.getElementById('ingImg');
+  ov.classList.remove('on');ov.style.display='flex';document.body.style.overflow='hidden';
+  img.onload=()=>{dibujarIng();requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('on')))};img.src='img/'+f.img+'.webp';if(img.complete&&img.naturalWidth)img.onload()}
+function cerrarIng(){const ov=document.getElementById('ingOv');ov.classList.remove('on');document.body.style.overflow='';ingAbierto=null;setTimeout(()=>{if(!ingAbierto)ov.style.display='none'},300)}
+function dibujarIng(){const f=FOTOS[ingAbierto];if(!f)return;const st=document.getElementById('ingStage'),img=document.getElementById('ingImg'),svg=document.getElementById('ingSvg'),L=document.getElementById('ingL');
+  const W=st.clientWidth,H=st.clientHeight,ar=img.naturalWidth/img.naturalHeight;
+  let iw=W-32,ih=iw/ar;const maxH=H*.48;if(ih>maxH){ih=maxH;iw=ih*ar}
+  const ix=(W-iw)/2,iy=(H-ih)/2;Object.assign(img.style,{left:ix+'px',top:iy+'px',width:iw+'px',height:ih+'px'});
+  const pts=f.ing.map(([t,x,y])=>({t,x:ix+iw*x/100,y:iy+ih*y/100})).sort((a,b)=>a.y-b.y);
+  const nTop=Math.ceil(pts.length/2),grupos=[pts.slice(0,nTop),pts.slice(nTop)];
+  let svgH='',lbl='';
+  grupos.forEach((g,gi)=>{g.sort((a,b)=>a.x-b.x);const k=g.length,top=gi===0;
+    const zona0=top?8:iy+ih+18,zona1=top?iy-18:H-8;
+    g.forEach((p,i)=>{const lx=W*(i+.5)/k,alto=(zona1-zona0),ly=top?zona0+alto*(k>2&&i%2?0.62:0.28):zona0+alto*(k>2&&i%2?0.38:0.72);
+      const ey=top?ly+16:ly-16,my=(ey+p.y)/2,d=`M${lx},${ey} C${lx},${my} ${p.x},${my} ${p.x},${p.y}`,len=Math.hypot(lx-p.x,ey-p.y)*1.3+20,del=.25+(gi*k+i)*.09;
+      svgH+=`<path d="${d}" style="--l:${len};transition-delay:${del}s"/>`;
+      lbl+=`<div class="pin" style="left:${p.x}px;top:${p.y}px;transition-delay:${del}s"></div><div class="lbl" style="left:${lx}px;top:${ly}px;max-width:${W/k-10}px;transition-delay:${del+.15}s">${p.t}</div>`})});
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=svgH;L.innerHTML=lbl}
+addEventListener('resize',()=>{if(ingAbierto)dibujarIng()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&ingAbierto)cerrarIng()});
 const fmt=p=>p==='S.T.'?'S.T.':'$'+p.toLocaleString('es-CO');
 function buildMenu(){const c=document.getElementById('cats');Object.keys(MENU).forEach((k,i)=>{const b=document.createElement('button');b.textContent=MENU[k].i+' '+k;b.onclick=()=>showCat(k);c.appendChild(b)});const q=new URLSearchParams(location.search).get('cat');showCat(MENU[q]?q:'Entradas')}
 function showCat(k){document.querySelectorAll('#cats button').forEach(b=>b.classList.toggle('on',b.textContent.endsWith(k)));const m=MENU[k];let h='<h2>'+m.i+' '+k+'</h2>'+(m.note?'<p class="note">'+m.note+'</p>':'');
 if(m.salsas){h+='<div class="card"><div class="sub" style="margin-top:0">Salsas para filetes</div>'+m.salsas.map(s=>'<p style="font-size:14px;margin:8px 0"><b>'+s[0]+':</b> '+s[1]+'</p>').join('')+'</div>'}
-if(m.d)h+=m.d.map(d=>'<div class="dish"><div class="ph"><span>'+m.i+'</span>Foto próximamente</div><div class="b"><div class="row"><h3>'+d[0]+'</h3><span class="price">'+fmt(d[1])+'</span></div><p>'+d[2]+'</p></div></div>').join('');
+if(m.d)h+=m.d.map(d=>'<div class="dish">'+(FOTOS[d[0]]?'<div class="foto" data-n="'+d[0]+'" onclick="verIng(this.dataset.n)"><img src="img/'+FOTOS[d[0]].img+'.webp" alt="'+d[0]+'" loading="lazy"><span class="hint">👆 Ver ingredientes</span></div>':'<div class="ph"><span>'+m.i+'</span>Foto próximamente</div>')+'<div class="b"><div class="row"><h3>'+d[0]+'</h3><span class="price">'+fmt(d[1])+'</span></div><p>'+d[2]+'</p></div></div>').join('');
 if(m.drinks)h+=m.drinks.map(g=>'<div class="card"><div class="sub" style="margin-top:0">'+g[0]+'</div>'+(g[2]?'<p class="note">'+g[2]+'</p>':'')+g[1].map(x=>'<div class="drink"><span>'+x[0]+(x[1]===0?'<span class="badge">Nuevo</span>':'')+'</span><b class="'+(x[1]?'':'pend')+'">'+(x[1]?fmt(x[1]):'[definir]')+'</b></div>').join('')+'</div>').join('');
 document.getElementById('dishes').innerHTML=h}
 // juego
