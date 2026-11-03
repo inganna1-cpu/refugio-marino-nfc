@@ -1,135 +1,470 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Refugio Marino · Restaurante campestre pescadería</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B3C5D">
+<title>Refugio Marino · Restaurante campestre pescadería</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0B3C5D;--teal:#1F867E;--deep:#06344a;--sea:#0b6e7f;--aqua:#2bb3b1;--foam:#e8f7f6;--sand:#f6eddc;--coral:#ff7a59;--txt:#12303d}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,#e6f6f6,#f6eddc);color:var(--txt);min-height:100vh}
-header{background:linear-gradient(160deg,var(--navy),var(--teal) 75%);color:#fff;padding:22px 20px 48px;text-align:center;position:relative;overflow:hidden}
+:root{
+  --navy:#0B3C5D;
+  --teal:#1F867E;
+  --deep:#06344a;
+  --sea:#0b6e7f;
+  --aqua:#2bb3b1;
+  --foam:#e6f6f6;
+  --sand:#f6eddc;
+  --bar:#e7f6f5;
+  --ink:#12303d;
+  --muted:#245568;
+  --price:#a9513b;
+  --font-sans:"Nunito Sans",sans-serif;
+  --font-script:"Kaushan Script",cursive;
+}
+*{box-sizing:border-box}
+html{background:#e6f6f6}
+[hidden]{display:none !important}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.45;
+  color:var(--ink);
+  background:#e6f6f6;
+  min-height:100vh;
+}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+button,a{font-family:var(--font-sans)}
+:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+.app{
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  min-height:100vh;
+  background:linear-gradient(180deg,var(--foam),var(--sand));
+  position:relative;
+}
+header{
+  background:linear-gradient(160deg,var(--navy),var(--teal) 75%);
+  color:#fff;
+  padding:22px 20px 48px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
 header .logo{width:76px;height:76px;border-radius:50%;display:block;margin:0 auto 6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-header h1{font-family:"Kaushan Script","Brush Script MT",cursive;font-size:42px;font-weight:400;line-height:1.1}header p{opacity:.85;font-size:14px;margin-top:4px}
-.mesa-tag{display:inline-flex;flex-direction:column;align-items:center;margin-top:14px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);padding:8px 26px 10px;border-radius:18px;line-height:1}
-.mesa-tag small{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.9;font-weight:700}
+header h1{font-family:var(--font-script);font-weight:400;font-size:42px;line-height:1.1;margin:0}
+header .tagline{color:#fff;font-size:16px;margin:6px 0 0}
+.mesa-tag{
+  display:inline-flex;flex-direction:column;align-items:center;
+  margin-top:14px;background:rgba(255,255,255,.16);
+  border:1.5px solid rgba(255,255,255,.45);
+  padding:8px 26px 10px;border-radius:18px;line-height:1;
+}
+.mesa-tag small{font-size:14px;letter-spacing:3px;text-transform:uppercase;font-weight:700}
 .mesa-tag b{font-size:46px;font-weight:800;letter-spacing:1px;margin-top:4px}
 .mesa-tag.sin{font-size:16px;padding:8px 18px;font-weight:600}
 .wave{position:absolute;bottom:-1px;left:0;width:100%;height:36px}
-main{max-width:520px;margin:-18px auto 0;padding:0 16px 40px;position:relative}
+main{padding:0 16px 88px;margin-top:-18px;position:relative}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.btn{background:#fff;border:none;border-radius:20px;padding:20px 10px;box-shadow:0 6px 18px rgba(6,52,74,.12);text-align:center;font-size:15px;font-weight:600;color:var(--deep);cursor:pointer;text-decoration:none;display:block}
-.btn .ico{font-size:34px;display:block;margin-bottom:6px}.btn.wide{grid-column:span 2;background:linear-gradient(135deg,var(--sea),var(--aqua));color:#fff}
-.carta{grid-column:span 2;position:relative;overflow:hidden;border:none;border-radius:24px;padding:24px 20px;cursor:pointer;color:#fff;text-align:left;
-  background:linear-gradient(120deg,var(--navy) 0%,var(--teal) 100%);box-shadow:0 12px 28px rgba(11,60,93,.38);display:flex;align-items:center;gap:16px;animation:latido 2.6s ease-in-out infinite}
-.carta .ic{flex:none;width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:36px}
-.carta b{display:block;font-size:26px;font-weight:900;letter-spacing:1.5px}
-.carta small{display:block;font-size:14px;opacity:.9;margin-top:3px}
-.carta .fl{margin-left:auto;font-size:30px;font-weight:700;animation:fl 1.3s ease-in-out infinite}
-.carta::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:brillo 3.2s ease-in-out infinite}
-@keyframes brillo{0%,55%{left:-60%}100%{left:130%}}
-@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
-@keyframes fl{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
-@media (prefers-reduced-motion:reduce){.carta,.carta::after,.carta .fl{animation:none}}
-.view{display:none}.view.on{display:block;animation:f .3s}@keyframes f{from{opacity:0;transform:translateY(8px)}}
-.back{background:none;border:none;color:var(--sea);font-weight:700;font-size:15px;margin:14px 0;cursor:pointer}
-.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:14px}
-h2{color:var(--deep);font-size:22px;margin-bottom:10px}
-.cats{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;position:sticky;top:0;background:linear-gradient(#e6f6f6 80%,transparent);z-index:2}
-.cats button{flex:none;border:2px solid var(--aqua);background:#fff;color:var(--sea);border-radius:20px;padding:8px 14px;font-weight:600;cursor:pointer}
+.btn{
+  background:#fff;border:none;border-radius:20px;padding:16px 12px;
+  box-shadow:0 6px 18px rgba(6,52,74,.12);
+  text-align:center;font-size:16px;font-weight:700;color:var(--deep);
+  cursor:pointer;text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:44px;
+}
+.btn .ico{font-size:32px;display:block;margin-bottom:6px;line-height:1}
+.btn small{display:block;font-size:13px;font-weight:600;line-height:1.3;margin-top:4px;color:var(--muted)}
+.btn.juego{grid-column:span 2;background:var(--price);color:#fff}
+.btn.juego small{color:#fff}
+.carta{
+  grid-column:span 2;position:relative;overflow:hidden;border:none;border-radius:24px;
+  padding:22px 18px;cursor:pointer;color:#fff;text-align:left;
+  background:linear-gradient(120deg,var(--navy) 0%,var(--teal) 100%);
+  box-shadow:0 12px 28px rgba(11,60,93,.38);
+  display:flex;align-items:center;gap:16px;font-family:var(--font-sans);
+}
+.carta .ic{flex:none;width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:34px}
+.carta b{display:block;font-size:26px;font-weight:800;letter-spacing:.4px}
+.carta small{display:block;font-size:15px;margin-top:3px;color:#fff;font-weight:600}
+.carta .fl{margin-left:auto;font-size:30px;font-weight:700}
+.carta::after{
+  content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);animation:brillo 1.15s ease-out 1 both;
+}
+@keyframes brillo{from{left:-60%}to{left:130%}}
+.view{display:none}
+.view.on{display:block;animation:subir .25s ease}
+@keyframes subir{from{opacity:0}}
+.back{
+  display:inline-flex;align-items:center;justify-content:flex-start;
+  min-height:44px;min-width:44px;padding:8px 12px 8px 0;margin:0;
+  background:none;border:none;color:var(--sea);
+  font-weight:700;font-size:16px;cursor:pointer;
+}
+.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(6,52,74,.1);margin:14px 0}
+h2{color:var(--deep);font-size:22px;line-height:1.25;margin:0 0 8px;font-weight:800}
+.lede{font-size:16px;line-height:1.45;margin:0 0 12px}
+.menu-intro h2{margin-bottom:4px}
+.menu-intro .lede{margin-bottom:8px}
+.menu-top{
+  position:sticky;top:0;z-index:4;
+  background:var(--bar);
+  margin:0 -16px 8px;padding:0 16px 4px;
+  box-shadow:0 8px 16px -14px rgba(6,52,74,.55);
+}
+.cats-wrap{position:relative}
+.cats{
+  display:flex;gap:8px;overflow-x:auto;padding:4px 108px 8px 12px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  position:relative;z-index:0;
+}
+.cats::-webkit-scrollbar{display:none}
+.cats button{
+  flex:none;border:2px solid var(--aqua);background:#fff;color:var(--sea);
+  border-radius:22px;padding:8px 14px;font-weight:700;font-size:15px;
+  min-height:44px;cursor:pointer;
+}
 .cats button.on{background:var(--sea);border-color:var(--sea);color:#fff}
+.cats-edge{
+  position:absolute;top:0;bottom:8px;width:96px;
+  display:none;align-items:center;
+  font-size:30px;font-weight:800;line-height:1;color:var(--sea);
+  pointer-events:none;z-index:3;
+}
+.cats-edge.right{
+  right:0;justify-content:flex-end;padding-right:6px;
+  background:linear-gradient(to left,var(--bar) 0 74%,rgba(231,246,245,0) 100%);
+}
+.cats-edge.left{
+  left:0;justify-content:flex-start;padding-left:6px;
+  background:linear-gradient(to right,var(--bar) 0 74%,rgba(231,246,245,0) 100%);
+}
+.cats-wrap.can-right .cats-edge.right,
+.cats-wrap.can-left .cats-edge.left{display:flex}
 .dish{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:16px}
-.foto{position:relative;height:190px;cursor:pointer;background:#e9eef0;overflow:hidden}
-.foto img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}.foto:active img{transform:scale(1.04)}
-.foto .hint{position:absolute;right:10px;bottom:10px;background:rgba(11,60,93,.85);color:#fff;font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:999px;backdrop-filter:blur(4px)}
-/* Infografía de ingredientes */
-.ov{display:none;position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 45%,#165A86,#06263C);display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.foto{position:relative;height:190px;cursor:pointer;background:#d5e6e4;overflow:hidden}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0}
+.foto img.is-in{opacity:1}
+.foto .hint{
+  position:absolute;right:10px;bottom:10px;
+  background:#0B3C5D;color:#fff;font-size:13px;font-weight:700;
+  padding:6px 11px;border-radius:999px;
+}
+.ov{
+  display:none;position:fixed;inset:0;z-index:50;
+  background:radial-gradient(circle at 50% 45%,#165A86,#06263C);
+  flex-direction:column;align-items:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
 .ov.on{opacity:1;pointer-events:auto}
-.ov .x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:22px;cursor:pointer;z-index:3}
+.ov .x{
+  position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;
+  border:none;background:rgba(255,255,255,.15);color:#fff;font-size:22px;cursor:pointer;z-index:3;
+}
 .ov .ovh{color:#fff;text-align:center;padding:18px 60px 0;width:100%}
-.ov .ovh h3{font-family:"Kaushan Script",cursive;font-weight:400;font-size:28px;line-height:1.15}
-.ov .ovh p{font-size:12.5px;opacity:.75;margin-top:4px}
-#ingStage{position:relative;flex:1;width:min(100vw,520px)}
+.ov .ovh h3{font-family:var(--font-sans);font-weight:800;font-size:24px;line-height:1.2;margin:0}
+.ov .ovh p{font-size:14px;margin:6px 0 0;color:#fff}
+#ingStage{position:relative;flex:1;width:min(100%,520px)}
 #ingSvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.7))}
 #ingSvg path{fill:none;stroke:#BFF3EC;stroke-width:2;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);transition:stroke-dashoffset .6s ease-out}
 .ov.on #ingSvg path{stroke-dashoffset:0}
-#ingImg{position:absolute;z-index:1;border-radius:20px;object-fit:cover;box-shadow:0 0 0 3px rgba(142,227,218,.35),0 20px 50px rgba(0,0,0,.45);transform:scale(.85);opacity:0;transition:transform .45s cubic-bezier(.2,.9,.3,1.2),opacity .3s}
+#ingImg{
+  position:absolute;z-index:1;border-radius:20px;object-fit:cover;
+  box-shadow:0 0 0 3px rgba(142,227,218,.35),0 20px 50px rgba(0,0,0,.45);
+  transform:scale(.85);opacity:0;transition:transform .45s cubic-bezier(.2,.9,.3,1.2),opacity .3s;
+}
 .ov.on #ingImg{transform:scale(1);opacity:1}
-.pin{position:absolute;z-index:3;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;border:3px solid var(--teal);box-shadow:0 0 0 0 rgba(142,227,218,.8);opacity:0;transition:opacity .3s;animation:pin 1.8s ease-out infinite}
+.pin{
+  position:absolute;z-index:3;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+  background:#fff;border:3px solid var(--teal);box-shadow:0 0 0 0 rgba(142,227,218,.8);
+  opacity:0;transition:opacity .3s;animation:pin 1.8s ease-out infinite;
+}
 .ov.on .pin{opacity:1}
 @keyframes pin{0%{box-shadow:0 0 0 0 rgba(142,227,218,.8)}100%{box-shadow:0 0 0 14px rgba(142,227,218,0)}}
-.lbl{position:absolute;z-index:3;transform:translate(-50%,-50%) scale(.6);opacity:0;background:#fff;color:var(--navy);font-weight:800;font-size:13.5px;line-height:1.2;text-align:center;padding:8px 12px;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .4s cubic-bezier(.2,.9,.3,1.3),opacity .3s;border-bottom:3px solid var(--teal)}
+.lbl{
+  position:absolute;z-index:3;transform:translate(-50%,-50%) scale(.6);opacity:0;
+  background:#fff;color:var(--navy);font-weight:800;font-size:14px;line-height:1.25;
+  text-align:center;padding:8px 12px;border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  transition:transform .4s cubic-bezier(.2,.9,.3,1.3),opacity .3s;
+  border-bottom:3px solid var(--teal);
+}
 .ov.on .lbl{transform:translate(-50%,-50%) scale(1);opacity:1}
-.ph{height:150px;background:linear-gradient(135deg,#bfe7e5,#0b6e7f);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-size:13px;opacity:.95}.ph span{font-size:38px}
-.dish .b{padding:14px 16px}.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
-.dish h3{font-size:17px;color:var(--deep)}.price{font-weight:800;color:var(--coral);white-space:nowrap}
-.dish p{font-size:14px;line-height:1.45;margin-top:6px;color:#33525e}.badge{background:var(--coral);color:#fff;font-size:11px;border-radius:8px;padding:2px 7px;margin-left:6px;vertical-align:middle}
-.note{font-size:12px;color:#5b7a85;margin:-4px 0 12px}
-.sub{font-size:15px;color:var(--sea);margin:18px 0 8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.drink{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #cfe5e4;font-size:15px}
-input{width:100%;padding:14px;border-radius:12px;border:2px solid #cfe5e4;font-size:18px;margin:10px 0}
-.cta{display:block;width:100%;text-align:center;background:#25d366;color:#fff;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;margin-top:6px}
-.cta.alt{background:var(--sea)}.pend{color:#b04a2f;font-weight:700}
-canvas{width:100%;border-radius:16px;background:linear-gradient(#7fd3e0,#0b4f6c);touch-action:none;display:block}
-footer{text-align:center;font-size:12px;color:#5b7a85;padding:20px}
-</style></head><body>
-<header><img class="logo" src="logo.png" alt=""><h1>Refugio Marino</h1><p>Restaurante campestre · pescadería</p><div class="mesa-tag sin" id="mesaTag">Bienvenido 🌊</div>
-<svg class="wave" viewBox="0 0 400 36" preserveAspectRatio="none"><path d="M0 20 Q50 0 100 20 T200 20 T300 20 T400 20 V36 H0Z" fill="#e6f6f6"/></svg></header>
+.ph{
+  height:150px;
+  background:linear-gradient(135deg,#bfe7e5,#0b6e7f);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  color:#fff;font-size:14px;font-weight:700;text-align:center;padding:12px;
+}
+.ph span{font-size:36px;display:block;margin-bottom:4px}
+.ph-limpio{height:120px;background:linear-gradient(160deg,#7eb8b4,#1d6570)}
+.ph-limpio svg{display:block}
+.dish .b{padding:14px 16px}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.dish h3{font-size:18px;line-height:1.3;color:var(--deep);margin:0}
+.price{font-weight:800;font-size:16px;color:var(--price);white-space:nowrap}
+.dish p{font-size:16px;line-height:1.45;margin:8px 0 0;color:#1e4654}
+.note{font-size:14px;line-height:1.4;color:var(--muted);margin:0 0 12px}
+.sub{font-size:15px;color:var(--sea);margin:0 0 8px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.salsas p{font-size:16px;line-height:1.45;margin:8px 0}
+.drink{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:12px 0;border-bottom:1px dashed #cfe5e4;font-size:16px;
+}
+.drink:last-child{border-bottom:none}
+input{width:100%;padding:14px;border-radius:12px;border:2px solid #cfe5e4;font-size:16px;margin:10px 0;background:#fff}
+.cta{
+  display:block;width:100%;text-align:center;background:#128C7E;color:#fff;
+  border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:800;
+  text-decoration:none;cursor:pointer;margin-top:8px;min-height:44px;
+}
+.cta.alt{background:var(--sea)}
+.redes{margin:6px 0 4px;text-align:center}
+.redes p{margin:0 0 8px;font-weight:800;color:var(--deep)}
+.redes-row{display:flex;justify-content:center;gap:12px}
+.redes a{
+  width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+}
+.redes svg{width:22px;height:22px;display:block}
+.to-top{
+  position:fixed;z-index:6;bottom:16px;
+  right:max(12px,calc(50vw - 260px + 12px));
+  width:44px;height:44px;padding:0;
+  border:none;border-radius:50%;background:var(--navy);color:#fff;
+  font-weight:800;font-size:22px;line-height:1;cursor:pointer;
+  box-shadow:0 8px 20px rgba(6,52,74,.28);
+}
+footer{text-align:center;font-size:14px;line-height:1.45;color:var(--muted);padding:8px 12px 12px}
+footer p{margin:0}
+canvas{width:100%;border-radius:16px;background:linear-gradient(#0e6e86,#0b4f6c);touch-action:none;display:block}
+@media (min-width:560px){
+  html,body{
+    background-color:#072433;
+    background-image:
+      radial-gradient(ellipse 560px 320px at 50% 0%,rgba(31,134,126,.4),transparent 70%),
+      radial-gradient(ellipse 700px 420px at 50% 100%,rgba(169,81,59,.16),transparent 60%),
+      linear-gradient(180deg,#041824 0%,#0a3048 46%,#0c4548 100%);
+    background-attachment:fixed;
+  }
+  .app{
+    box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 48px rgba(0,0,0,.28);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .carta::after{animation:none;display:none}
+  .view.on,.pin,.foto img,.lbl,#ingImg,#ingSvg path{animation:none;transition:none}
+  .ov,.ov.on #ingImg{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <img class="logo" src="logo.png" alt="Refugio Marino">
+  <h1>Refugio Marino</h1>
+  <p class="tagline">Restaurante campestre · pescadería</p>
+  <div class="mesa-tag sin" id="mesaTag">Bienvenido</div>
+  <svg class="wave" viewBox="0 0 400 36" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 Q50 0 100 20 T200 20 T300 20 T400 20 V36 H0Z" fill="#e6f6f6"/></svg>
+</header>
 <main>
-<section class="view on" id="v-home"><div class="grid">
-<button class="carta" onclick="go('menu')"><span class="ic">📖</span><span><b>VER CARTA</b><small>Platos, bebidas y fotos</small></span><span class="fl">›</span></button>
-<button class="btn" onclick="go('mesero')"><span class="ico">🙋</span>Llamar al mesero</button>
-<button class="btn" onclick="go('redes')"><span class="ico">📱</span>Redes sociales</button>
-<a class="btn" id="resenaBtn" href="#" onclick="return resena()"><span class="ico">⭐</span>Déjanos tu reseña</a>
-<button class="btn" onclick="go('juego')" style="background:linear-gradient(135deg,#ff9a6b,var(--coral));color:#fff"><span class="ico">🐠</span>Juego: Atrapa los peces</button>
-</div>
-<div class="card" style="margin-top:16px;text-align:center"><b>Reservas y eventos</b><p style="font-size:14px;margin-top:6px">Atendemos reuniones sociales, familiares y empresariales en salón de eventos. 🎂 Tenemos protocolo de cumpleaños. 🚗 Estacionamiento disponible.</p><a class="cta alt" href="https://wa.me/573107689859?text=Hola%2C%20quiero%20hacer%20una%20reserva">Reservar: 310 768 9859</a></div>
+<section class="view on" id="v-home">
+  <div class="grid">
+    <button class="carta" type="button" onclick="go('menu')"><span class="ic" aria-hidden="true">📖</span><span><b>VER CARTA</b><small>Platos, bebidas y fotos</small></span><span class="fl" aria-hidden="true">›</span></button>
+    <button class="btn" type="button" onclick="go('mesero')"><span class="ico" aria-hidden="true">🙋</span><span>Llamar al mesero</span><small>Avisa para que venga a tu mesa</small></button>
+    <a class="btn" id="resenaBtn" href="https://www.google.com/maps/search/?api=1&query=Refugio+Marino" target="_blank" rel="noopener noreferrer"><span class="ico" aria-hidden="true">⭐</span>Déjanos tu reseña</a>
+    <button class="btn juego" type="button" onclick="go('juego')"><span class="ico" aria-hidden="true">🐠</span>Juego: Atrapa los peces</button>
+  </div>
+  <div class="card">
+    <h2>¿Cómo pedir?</h2>
+    <p class="lede"><b>Pide con tu mesero.</b> Recorre la carta con calma y, cuando quieras ordenar, toca «Llamar al mesero». Avisamos en tu mesa para que venga a tomarte el pedido. No es una llamada de teléfono.</p>
+  </div>
+  <div class="card">
+    <h2>Reservas y eventos</h2>
+    <p>Atendemos reuniones sociales, familiares y empresariales en el salón de eventos. Tenemos protocolo de cumpleaños y estacionamiento disponible.</p>
+    <p>Para reservar, escríbenos por WhatsApp.</p>
+    <a class="cta alt" href="https://wa.me/573107689859?text=Hola%2C%20quiero%20hacer%20una%20reserva">Reservar por WhatsApp</a>
+  </div>
+  <nav class="redes" aria-label="Redes sociales">
+    <p>Síguenos</p>
+    <div class="redes-row">
+      <a href="https://www.facebook.com/refugiomarinorestaurantebog/" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Refugio Marino"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.6l.4-3H13v-2c0-.6.4-1 1-1z"/></svg></a>
+      <a href="https://www.instagram.com/refugiomarino.bog/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Refugio Marino"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+      <a href="https://www.tiktok.com/@refugiomarino.bog" target="_blank" rel="noopener noreferrer" aria-label="TikTok de Refugio Marino"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.5 3c.4 2.4 1.8 4.1 4.1 4.4v2.5c-1.4 0-2.7-.4-4-1.2v6.4c0 3.3-2.6 5.9-6 5.9S2.6 18.4 2.6 15.1c0-3.2 2.5-5.8 5.7-5.9v2.6c-1.6.1-2.9 1.5-2.9 3.2 0 1.8 1.4 3.2 3.2 3.2s3.2-1.4 3.2-3.2V3h2.7z"/></svg></a>
+    </div>
+  </nav>
 </section>
 
-<section class="view" id="v-menu"><button class="back" onclick="go('home')">← Inicio</button><h2>Nuestra carta</h2><div class="cats" id="cats"></div><div id="dishes"></div></section>
+<section class="view" id="v-menu">
+  <div class="menu-intro">
+    <h2>Nuestra carta</h2>
+    <p class="lede">Pide con tu mesero. La carta es para consultar; el pedido lo toma en la mesa.</p>
+  </div>
+  <div class="menu-top">
+    <button class="back" type="button" onclick="go('home')">← Inicio</button>
+    <div class="cats-wrap" id="catsWrap">
+      <span class="cats-edge left" aria-hidden="true">‹</span>
+      <div class="cats" id="cats" role="tablist" aria-label="Categorías"></div>
+      <span class="cats-edge right" aria-hidden="true">›</span>
+    </div>
+  </div>
+  <div id="dishes"></div>
+</section>
 
-<section class="view" id="v-mesero"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>🙋 ¿Qué necesitas?</h2>
-<input id="mesaIn" type="text" autocapitalize="characters" placeholder="Mesa (ej. S1-01)" maxlength="6">
-<div class="grid" style="margin-top:6px">
-<button class="btn" onclick="pedir('mesero')"><span class="ico">🙋</span>Llamar al mesero</button>
-<button class="btn" onclick="pedir('cuenta')"><span class="ico">🧾</span>Pedir la cuenta</button>
-<button class="btn" onclick="pedir('servilletas')"><span class="ico">🍴</span>Servilletas / cubiertos</button>
-<button class="btn" onclick="pedir('otro')"><span class="ico">💬</span>Otro</button></div>
-<input id="notaIn" maxlength="140" placeholder="(Opcional) Cuéntanos qué necesitas" style="font-size:15px">
-<p id="msg" style="text-align:center;font-weight:700;margin-top:8px"></p>
-<a class="cta" id="waFb" href="#" onclick="return mesero()" style="display:none">Avisar por WhatsApp</a></div></section>
+<section class="view" id="v-mesero">
+  <button class="back" type="button" onclick="go('home')">← Inicio</button>
+  <div class="card">
+    <h2>Llamar al mesero</h2>
+    <p>Con este botón avisamos al personal de tu mesa. Tu mesero se acerca para tomar el pedido, resolver una duda o llevar la cuenta. No marca un número de teléfono.</p>
+    <label for="mesaIn" class="note">Mesa</label>
+    <input id="mesaIn" type="text" autocapitalize="characters" placeholder="Mesa (ej. S1-01)" maxlength="6" autocomplete="off">
+    <div class="grid" style="margin-top:6px">
+      <button class="btn" type="button" onclick="pedir('mesero')"><span class="ico" aria-hidden="true">🙋</span>Llamar al mesero</button>
+      <button class="btn" type="button" onclick="pedir('cuenta')"><span class="ico" aria-hidden="true">🧾</span>Pedir la cuenta</button>
+      <button class="btn" type="button" onclick="pedir('servilletas')"><span class="ico" aria-hidden="true">🍴</span>Servilletas / cubiertos</button>
+      <button class="btn" type="button" onclick="pedir('otro')"><span class="ico" aria-hidden="true">💬</span>Otro</button>
+    </div>
+    <input id="notaIn" maxlength="140" placeholder="(Opcional) Cuéntanos qué necesitas">
+    <p id="msg" style="text-align:center;font-weight:700;margin-top:8px"></p>
+    <a class="cta" id="waFb" href="#" onclick="return mesero()" hidden>Avisar por WhatsApp</a>
+  </div>
+</section>
 
-<section class="view" id="v-redes"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>📱 Síguenos</h2>
-<a class="cta alt" style="background:#1877f2" href="https://www.facebook.com/refugiomarinorestaurantebog/" target="_blank" rel="noopener">Facebook <span>Refugio Marino Restaurante</span></a>
-<a class="cta alt" style="background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af)" href="https://www.instagram.com/refugiomarino.bog/">Instagram · @refugiomarino.bog</a>
-<a class="cta alt" style="background:#111" href="https://www.tiktok.com/@refugiomarino.bog">TikTok · @refugiomarino.bog</a>
-</div></section>
+<section class="view" id="v-juego">
+  <button class="back" type="button" onclick="go('home')">← Inicio</button>
+  <div class="card">
+    <h2>Atrapa los peces</h2>
+    <p class="note">Toca los peces antes de que escapen. Evita los cangrejos. Tienes 30 segundos.</p>
+    <canvas id="cv" width="360" height="420"></canvas>
+    <p style="margin-top:8px;text-align:center"><b id="score">Puntos: 0</b> · <span id="time">30s</span></p>
+    <button class="cta alt" type="button" onclick="startGame()">Jugar</button>
+  </div>
+</section>
 
-
-<section class="view" id="v-juego"><button class="back" onclick="go('home')">← Inicio</button><div class="card"><h2>🐠 Atrapa los peces</h2><p class="note">Toca los peces antes de que escapen. ¡Evita los cangrejos! 30 segundos.</p>
-<canvas id="cv" width="360" height="420"></canvas><p style="margin-top:8px;text-align:center"><b id="score">Puntos: 0</b> · <span id="time">30s</span></p><button class="cta alt" onclick="startGame()">Jugar</button></div></section>
-<div class="ov" id="ingOv" onclick="if(event.target===this||event.target.id==='ingStage')cerrarIng()"><button class="x" onclick="cerrarIng()" aria-label="Cerrar">✕</button><div class="ovh"><h3 id="ingT"></h3><p>Ingredientes · toca fuera para cerrar</p></div><div id="ingStage"><svg id="ingSvg"></svg><img id="ingImg" alt=""><div id="ingL"></div></div></div>
-<footer>Refugio Marino · Reservas 310 768 9859<br>Siempre se piensa en volver… 🌴</footer>
+<div class="ov" id="ingOv" onclick="if(event.target===this||event.target.id==='ingStage')cerrarIng()">
+  <button class="x" type="button" onclick="cerrarIng()" aria-label="Cerrar">✕</button>
+  <div class="ovh"><h3 id="ingT"></h3><p>Ingredientes · toca fuera para cerrar</p></div>
+  <div id="ingStage"><svg id="ingSvg"></svg><img id="ingImg" alt=""><div id="ingL"></div></div>
+</div>
+<footer>
+  <p>Refugio Marino · 310 768 9859</p>
+  <p>Siempre se piensa en volver… 🌴</p>
+</footer>
 </main>
+<button class="to-top" type="button" id="toTop" hidden aria-label="Volver arriba" title="Volver arriba">↑</button>
+</div>
 <script>
-const WA='573107689859', GOOGLE_REVIEW='[PENDIENTE]';
-const MESA_RE=/^S\d{1,2}-\d{2}$/;const _m=(new URLSearchParams(location.search).get('mesa')||'').trim().toUpperCase();const mesa=MESA_RE.test(_m)?_m:null;
-if(mesa){const t=document.getElementById('mesaTag');t.classList.remove('sin');t.innerHTML='<small>Mesa</small><b>'+mesa+'</b>';document.getElementById('mesaIn').value=mesa}
-function go(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));document.getElementById('v-'+v).classList.add('on');scrollTo(0,0);if(v==='menu'&&!document.getElementById('cats').children.length)buildMenu()}
-const BACKEND_URL='https://idhxedaebgkyfvmliwfv.supabase.co/functions/v1/llamar-mesero'; // ej: https://<ref>.supabase.co/functions/v1/llamar-mesero
-const TIPO_TXT={mesero:'necesito un mesero',cuenta:'quiero pedir la cuenta',servilletas:'necesito servilletas/cubiertos',otro:'necesito ayuda'};
-let ultimoTipo='mesero';
-function mesaVal(){const m=document.getElementById('mesaIn').value.trim().toUpperCase();return MESA_RE.test(m)?m:null}
-function msg(t,c){const e=document.getElementById('msg');e.textContent=t;e.style.color=c||'var(--sea)'}
-async function pedir(tipo){ultimoTipo=tipo;const m=mesaVal();if(!m){msg('Escribe tu mesa como aparece en la etiqueta (ej. S1-01)','#b04a2f');return}
-const k='llamado_'+m,lastT=+localStorage.getItem(k)||0,falta=60-Math.floor((Date.now()-lastT)/1000);
-if(falta>0){msg('Ya avisamos 🙌 Puedes volver a llamar en '+falta+' s');return}
-msg('Enviando…');const nota=document.getElementById('notaIn').value.trim();
-try{if(BACKEND_URL.startsWith('['))throw 0;
-const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mesa:m,tipo,nota:nota||undefined})});
-if(r.status===404){msg('No encontramos la mesa '+m+'. Revisa la etiqueta.','#b04a2f');return}
-if(r.status===429){localStorage.setItem(k,Date.now());msg('Ya avisamos 🙌 Tu mesero ya viene');return}
-if(!r.ok)throw 0;localStorage.setItem(k,Date.now());msg('✅ ¡Tu mesero ya viene!');document.getElementById('waFb').style.display='none'}
-catch(e){msg('No pudimos avisar automáticamente. Usa WhatsApp:','#b04a2f');document.getElementById('waFb').style.display='block'}}
-function mesero(){const m=mesaVal()||'__';const n=document.getElementById('notaIn').value.trim();location.href='https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, '+TIPO_TXT[ultimoTipo]+' en la mesa '+m+(n?'. '+n:''));return false}
-function resena(){if(GOOGLE_REVIEW.startsWith('['))alert('Enlace de reseña en Google [PENDIENTE]');else location.href=GOOGLE_REVIEW;return false}
-const S='Pregunte precio según tamaño';
-const MENU={
-'Entradas':{i:'🦐',d:[
+// Enlace de «Déjanos tu reseña». Hoy abre la ficha de búsqueda en Google Maps.
+// Cuando exista el enlace directo de Google Reviews, sustitúyelo aquí.
+const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps/search/?api=1&query=Refugio+Marino';
+
+// Precios de referencia para «Propuestas nuevas».
+// sana = bebida sana; leche = con leche. Si no encaja con claridad, no se publica.
+const PRECIO_BEBIDA_SANA = 12000;
+const PRECIO_CON_LECHE = 13000;
+const TIPO_PRECIO = {sana: PRECIO_BEBIDA_SANA, leche: PRECIO_CON_LECHE};
+const PROPUESTAS = [
+  ['Michelada', 'no'],
+  ['Limonada cerezada', 'sana'],
+  ['Jugo de corozo', 'sana'],
+  ['Agua de panela con limón', 'sana'],
+  ['Mojito sin alcohol', 'no'],
+  ['Coctel de la casa (piña colada)', 'no'],
+  ['Café tinto / capuchino', 'no']
+];
+function itemsPropuestas(){
+  return PROPUESTAS.filter(([, tipo]) => TIPO_PRECIO[tipo]).map(([nombre, tipo]) => [nombre, TIPO_PRECIO[tipo]]);
+}
+
+const WA = '573107689859';
+const MESA_RE = /^S\d{1,2}-\d{2}$/;
+const _m = (new URLSearchParams(location.search).get('mesa') || '').trim().toUpperCase();
+const mesa = MESA_RE.test(_m) ? _m : null;
+if (mesa) {
+  const t = document.getElementById('mesaTag');
+  t.classList.remove('sin');
+  t.innerHTML = '<small>Mesa</small><b>' + mesa + '</b>';
+  document.getElementById('mesaIn').value = mesa;
+}
+
+function reduceMotion(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches}
+function go(v){
+  document.querySelectorAll('.view').forEach(e => e.classList.remove('on'));
+  document.getElementById('v-' + v).classList.add('on');
+  window.scrollTo(0, 0);
+  if (v === 'menu' && !document.getElementById('cats').children.length) buildMenu();
+  else if (v === 'menu'){
+    updateCatsHint();
+    const activa = document.querySelector('#cats button.on');
+    if (activa) asegurarPestana(activa);
+  }
+  syncTop();
+}
+
+const BACKEND_URL = 'https://idhxedaebgkyfvmliwfv.supabase.co/functions/v1/llamar-mesero';
+const TIPO_TXT = {mesero:'necesito un mesero', cuenta:'quiero pedir la cuenta', servilletas:'necesito servilletas/cubiertos', otro:'necesito ayuda'};
+let ultimoTipo = 'mesero';
+function mesaVal(){
+  const m = document.getElementById('mesaIn').value.trim().toUpperCase();
+  return MESA_RE.test(m) ? m : null;
+}
+function msg(t, c){
+  const e = document.getElementById('msg');
+  e.textContent = t;
+  e.style.color = c || 'var(--sea)';
+}
+async function pedir(tipo){
+  ultimoTipo = tipo;
+  const m = mesaVal();
+  if (!m){msg('Escribe tu mesa como aparece en la etiqueta (ej. S1-01)', '#9a3412'); return}
+  const k = 'llamado_' + m, lastT = +localStorage.getItem(k) || 0, falta = 60 - Math.floor((Date.now() - lastT) / 1000);
+  if (falta > 0){msg('Ya avisamos. Puedes avisar de nuevo en ' + falta + ' s'); return}
+  msg('Enviando…');
+  const nota = document.getElementById('notaIn').value.trim();
+  const wa = document.getElementById('waFb');
+  try {
+    if (BACKEND_URL.startsWith('[')) throw 0;
+    const r = await fetch(BACKEND_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({mesa:m, tipo, nota:nota || undefined})});
+    if (r.status === 404){msg('No encontramos la mesa ' + m + '. Revisa la etiqueta.', '#9a3412'); return}
+    if (r.status === 429){localStorage.setItem(k, Date.now()); msg('Ya avisamos. Tu mesero ya viene'); return}
+    if (!r.ok) throw 0;
+    localStorage.setItem(k, Date.now());
+    msg('Listo: tu mesero ya viene.');
+    wa.hidden = true;
+  } catch (e) {
+    msg('No pudimos avisar automáticamente. Escríbenos por WhatsApp:', '#9a3412');
+    wa.hidden = false;
+  }
+}
+function mesero(){
+  const m = mesaVal() || '__';
+  const n = document.getElementById('notaIn').value.trim();
+  location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('Hola, ' + TIPO_TXT[ultimoTipo] + ' en la mesa ' + m + (n ? '. ' + n : ''));
+  return false;
+}
+function configurarResena(url){
+  const a = document.getElementById('resenaBtn');
+  const limpio = String(url || '').trim();
+  a.hidden = false;
+  if (!limpio || limpio === '#') return;
+  a.href = limpio;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+}
+configurarResena(GOOGLE_REVIEWS_URL);
+
+const MENU = {
+'Entradas':{i:'🦐', d:[
 ['Ceviche de camarones Cumbiambero',33000,'Camarones tigre con plumas de cebolla, aromatizados con cilantro y terminados en salsa de tomate. Un ceviche cantado al mejor estilo colombiano, fresco y lleno de sabor.'],
 ['Ceviche de Mango',28000,'Fresco preparado de cubitos de mango, aguacate y camarones, sumergidos en una exquisita leche de tigre con cebolla morada y cilantro. Dulce, cítrico y refrescante, acompañado de chips de plátano.'],
 ['Patacones con hogao',13000,'Crujientes tostones de plátano verde acompañados de nuestro inigualable hogao criollo. El clásico para compartir mientras llega el plato fuerte.'],
@@ -137,33 +472,33 @@ const MENU={
 ['Ceviche peruano',35000,'Cubos de pescado blanco marinados en leche de tigre, con cebolla morada en plumas, cilantro y cubos de aguacate. Acompañado de crujientes platanitos.'],
 ['Aros de calamar rebosados',32000,'Aros de calamar dorados y crujientes, acompañados de nuestra salsa artesanal de limón y almendras.'],
 ['Chicharrón de Pirarucú (para compartir)',36000,'Cubitos de filete de pirarucú del río Amazonas rebozados y dorados, servidos con nuestra salsa artesanal de pimentón y almendras. Ideal para la mesa.']]},
-'Sopas':{i:'🍲',d:[
+'Sopas':{i:'🍲', d:[
 ['Crema Marinera',29000,'Tradicional bisque de jaiba azul y fumet de pescado: una crema sedosa e intensa con todo el sabor del mar.'],
 ['Sancocho del Pacífico',11500,'Preparado con pescado fresco, cubos de plátano y yuca, con toda la tradición de nuestro Pacífico colombiano. Reconfortante y casero.']]},
-'Pescados':{i:'🐟',note:'S.T. = precio según tamaño; pregunta a tu mesero.',d:[
+'Pescados':{i:'🐟', note:'S.T. = precio según tamaño; pregunta a tu mesero.', d:[
 ['Pargo Rojo','S.T.','Fresco pescado de mar, pídelo frito y crocante o guisado en leche de coco con todo el sabor de la casa. Acompañado de papa en casco, patacón y ensalada.'],
 ['Róbalo Gualajo','S.T.','Fresco pescado de mar, pídelo frito o guisado en leche de coco con todo el sabor de la casa. Acompañado de papa en casco, patacón y ensalada.'],
 ['Mojarra roja','S.T.','Crocante y fresca mojarra roja frita, dorada por fuera y jugosa por dentro. Acompañada de papa en casco, patacón y ensalada.']]},
-'Mariscos':{i:'🦞',d:[
+'Mariscos':{i:'🦞', d:[
 ['Arroz Marinero',51000,'Arroz salteado con pulpo, mix de calamares, camarones y mejillones, con todo el sabor caribe. Acompañado de papas de la casa y ensalada fresca.'],
 ['Camarones Apanados',49000,'Camarones tigre apanados, dorados y crocantes, acompañados de nuestra ensalada fresca, patacón y aros de calamar.'],
 ['Cazuela Mariscos Refugio Marino',59000,'Nuestra cazuela insignia: pulpo, mix de calamares, camarones, palmitos y mejillones en una deliciosa crema marinera. Acompañada de arroz con coco y patacón.'],
 ['Cazuela Camarones',58000,'Cremosa cazuela de bisque de jaiba con camarones, anillos de calamar, mejillón, palmitos y queso parmesano, con todo el sabor caribe. Con arroz con coco y patacón.'],
 ['Arroz con Camarones',49000,'Arroz salteado con camarones tigre seleccionados y vegetales, con todo el sabor caribe. Acompañado de papas de la casa y ensalada fresca.'],
 ['Paella valenciana',56000,'Arroz parbolizado con trozos de lomo de cerdo, pollo, chorizo y frutos del mar: anillos de calamar, camarones y mejillón. Acompañada de pan de ajo y mantequilla.']]},
-'Filetes y salsas':{i:'🍣',note:'Los filetes incluyen una salsa a elección de la lista.',salsas:[
+'Filetes y salsas':{i:'🍣', note:'Los filetes incluyen una salsa a elección de la lista.', salsas:[
 ['Salsa de camarones','Camarones salteados al pimentón, mezclados con crema de jaibas azules y terminados con cremosa leche de coco.'],
 ['Salsa Mediterránea','Preparada con nuestra exquisita crema de jaiba azul del Pacífico.'],
 ['Salsa al ajillo','Inigualable cobertura de mantequilla y ajo, aromatizada con perejil fresco.'],
 ['Salsa Provenzal','Champiñones en reducción de crema de leche, aromatizada con especias.'],
-['Salsa Menier','Zumo de limón, mantequilla, almendras crocantes y un ligero toque de ajo.']],d:[
+['Salsa Menier','Zumo de limón, mantequilla, almendras crocantes y un ligero toque de ajo.']], d:[
 ['Filete de salmón',59000,'Jugoso corte de salmón chileno a la plancha, con la salsa de tu elección. Acompañado de papa en casco y ensalada.'],
 ['Filete de Róbalo',59000,'Espectacular filete de róbalo a la plancha, con la salsa de tu elección. Acompañado de papa en casco y ensalada.'],
 ['Filete de Pargo Rojo',62000,'Filete de pargo rojo con la salsa de tu elección. Pregunta disponibilidad.'],
 ['Filete de Tilapia',49000,'Fresco filete de tilapia roja a la plancha, con la salsa de tu elección. Acompañado de papa en casco y ensalada.'],
 ['Trucha a la plancha',48000,'Fresca trucha a la plancha, con la salsa de tu elección. Acompañada de papa en casco y ensalada.'],
 ['Sancocho de Bagre',49000,'Abundante posta de bagre dorado preparada en sancocho con papa, yuca y plátano. Acompañado de arroz y ensalada de la casa.']]},
-'Carnes':{i:'🥩',d:[
+'Carnes':{i:'🥩', d:[
 ['Churrasco Argentino',49000,'Jugoso corte mariposa macerado con chimichurri y asado a punto.'],
 ['Lomo fino en salsa de champiñones',52000,'Medallones de lomo fino de res cubiertos con nuestra exquisita salsa de champiñones paris.'],
 ['Lomo saltado',55000,'Cubos de tierno lomo fino salteados con cebolla, tomate y pimentón. Acompañado de papas en casco y arroz.'],
@@ -172,64 +507,262 @@ const MENU={
 ['Pechuga de pollo salsa champiñones',39000,'Pechuga asada a la plancha bañada en salsa de champiñones, con papas en casco y ensalada del día.'],
 ['Pechuga de pollo a la plancha',36000,'Pechuga de pollo a la plancha, sencilla, jugosa y saludable.'],
 ['Nuggets de pollo (menú infantil)',29000,'Para los más pequeños: nuggets de pollo dorados, acompañados de papa a la francesa y ensalada.']]},
-'Pastas':{i:'🍝',d:[
+'Pastas':{i:'🍝', d:[
 ['Tagliatelle al funghi',47000,'Pasta tagliatelle artesanal al huevo con hongos paris, salsa pesto y queso parmesano.'],
 ['Tagliatelle Gamberetti',49000,'Tagliatelle con camarones tigre salteados en una deliciosa salsa de camarones.'],
 ['Tagliatelle Mediterránea',52000,'Tagliatelle artesanal con frutos del mar, bisque de jaiba azul, camarones, mejillón y queso parmesano. Acompañada de tostadas con pan y mantequilla.'],
 ['Tagliatelle pollo y champiñones',48000,'Tagliatelle artesanal con pollo y láminas de champiñones en su salsa, con queso parmesano. Acompañada de pan con mantequilla de ajo.']]},
-'Bebidas':{i:'🍹',drinks:[
+'Bebidas':{i:'🍹', drinks:[
 ['Jugos naturales',[['Jugo en agua',8500],['Jugo en leche',9500]],'Guanábana, mora, fresa, lulo, mango, maracuyá, piña, frutos amarillos, frutos rojos, limonada natural.'],
 ['Limonadas y otras',[['Limonada de coco',11000],['Limonada de hierbabuena',9500],['Cerezada',9500],['Piña con jengibre y hierbabuena',9500],['Agua con gas / sin gas',6500],['Gaseosa',7500],['Soda',6500]]],
 ['Vinos',[['Vino tinto Casillero',135000],['Vino blanco Casillero',135000],['Vino tinto chileno',125000],['Copa de vino',19000]]],
 ['Cervezas',[['Club Dorada',9000],['Club Roja',9500],['Club Verde',9500],['Cerveza Corona',9500],['Cerveza Poker',8500],['Stella Artois',13000]]],
-['Propuestas nuevas',[['Michelada',0],['Limonada cerezada',0],['Jugo de corozo',0],['Agua de panela con limón',0],['Mojito sin alcohol',0],['Coctel de la casa (piña colada)',0],['Café tinto / capuchino',0]],'Bebidas sugeridas para ampliar la carta.']]}
+['Propuestas nuevas', itemsPropuestas()]]}
 };
-/* Fotos e ingredientes: [nombre, x%, y%] = punto del ingrediente sobre la foto */
-const FOTOS={
+
+const FOTOS = {
 'Ceviche de camarones Cumbiambero':{img:'ceviche-de-camarones-cumbiambero',ing:[['Camarones tigre',37,52],['Plumas de cebolla',18,60],['Cilantro',47,22],['Salsa de tomate',33,73]]},
 'Ceviche de Mango':{img:'ceviche-de-mango',ing:[['Camarones',45,24],['Mango',40,66],['Aguacate',55,85],['Cebolla morada',70,60],['Cilantro',58,37],['Chips de plátano',70,14]]},
 'Patacones con hogao':{img:'patacones-con-hogao',ing:[['Plátano verde',25,45],['Patacón crujiente',62,72],['Hogao criollo',66,22],['Tomate y cebolla',86,30]]},
 'Calamares y camarones al ajillo':{img:'calamares-y-camarones-al-ajillo',ing:[['Camarones tigre',32,26],['Paprika',57,40],['Mantequilla de ajo',48,62],['Aros de calamar',73,70]]},
 'Ceviche peruano':{img:'ceviche-peruano',ing:[['Cebolla morada',63,33],['Cilantro',30,38],['Platanitos',80,20],['Aguacate',73,50],['Pescado blanco',55,57],['Leche de tigre',22,72]]},
 'Aros de calamar rebosados':{img:'aros-de-calamar',ing:[['Limón',6,40],['Salsa de limón y almendras',80,26],['Rebozado crujiente',62,45],['Aros de calamar',40,78]]},
-'Chicharrón de Pirarucú (para compartir)':{img:'chicharron-de-pirarucu',ing:[['Limón',10,38],['Salsa artesanal',75,32],['Rebozado dorado',35,60],['Filete de pirarucú',68,72]]}};
-let ingAbierto=null;
-function verIng(n){const f=FOTOS[n];if(!f)return;ingAbierto=n;document.getElementById('ingT').textContent=n;const ov=document.getElementById('ingOv'),img=document.getElementById('ingImg');
-  ov.classList.remove('on');ov.style.display='flex';document.body.style.overflow='hidden';
-  img.onload=()=>{dibujarIng();requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('on')))};img.src='img/'+f.img+'.webp';if(img.complete&&img.naturalWidth)img.onload()}
-function cerrarIng(){const ov=document.getElementById('ingOv');ov.classList.remove('on');document.body.style.overflow='';ingAbierto=null;setTimeout(()=>{if(!ingAbierto)ov.style.display='none'},300)}
-function dibujarIng(){const f=FOTOS[ingAbierto];if(!f)return;const st=document.getElementById('ingStage'),img=document.getElementById('ingImg'),svg=document.getElementById('ingSvg'),L=document.getElementById('ingL');
-  const W=st.clientWidth,H=st.clientHeight,ar=img.naturalWidth/img.naturalHeight;
-  let iw=W-32,ih=iw/ar;const maxH=H*.48;if(ih>maxH){ih=maxH;iw=ih*ar}
-  const ix=(W-iw)/2,iy=(H-ih)/2;Object.assign(img.style,{left:ix+'px',top:iy+'px',width:iw+'px',height:ih+'px'});
-  const pts=f.ing.map(([t,x,y])=>({t,x:ix+iw*x/100,y:iy+ih*y/100})).sort((a,b)=>a.y-b.y);
-  const nTop=Math.ceil(pts.length/2),grupos=[pts.slice(0,nTop),pts.slice(nTop)];
-  let svgH='',lbl='';
-  grupos.forEach((g,gi)=>{g.sort((a,b)=>a.x-b.x);const k=g.length,top=gi===0;
-    const zona0=top?8:iy+ih+18,zona1=top?iy-18:H-8;
-    g.forEach((p,i)=>{const lx=W*(i+.5)/k,alto=(zona1-zona0),ly=top?zona0+alto*(k>2&&i%2?0.62:0.28):zona0+alto*(k>2&&i%2?0.38:0.72);
-      const ey=top?ly+16:ly-16,my=(ey+p.y)/2,d=`M${lx},${ey} C${lx},${my} ${p.x},${my} ${p.x},${p.y}`,len=Math.hypot(lx-p.x,ey-p.y)*1.3+20,del=.25+(gi*k+i)*.09;
-      svgH+=`<path d="${d}" style="--l:${len};transition-delay:${del}s"/>`;
-      lbl+=`<div class="pin" style="left:${p.x}px;top:${p.y}px;transition-delay:${del}s"></div><div class="lbl" style="left:${lx}px;top:${ly}px;max-width:${W/k-10}px;transition-delay:${del+.15}s">${p.t}</div>`})});
-  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=svgH;L.innerHTML=lbl}
-addEventListener('resize',()=>{if(ingAbierto)dibujarIng()});
-addEventListener('keydown',e=>{if(e.key==='Escape'&&ingAbierto)cerrarIng()});
-const fmt=p=>p==='S.T.'?'S.T.':'$'+p.toLocaleString('es-CO');
-function buildMenu(){const c=document.getElementById('cats');Object.keys(MENU).forEach((k,i)=>{const b=document.createElement('button');b.textContent=MENU[k].i+' '+k;b.onclick=()=>showCat(k);c.appendChild(b)});const q=new URLSearchParams(location.search).get('cat');showCat(MENU[q]?q:'Entradas')}
-function showCat(k){document.querySelectorAll('#cats button').forEach(b=>b.classList.toggle('on',b.textContent.endsWith(k)));const m=MENU[k];let h='<h2>'+m.i+' '+k+'</h2>'+(m.note?'<p class="note">'+m.note+'</p>':'');
-if(m.salsas){h+='<div class="card"><div class="sub" style="margin-top:0">Salsas para filetes</div>'+m.salsas.map(s=>'<p style="font-size:14px;margin:8px 0"><b>'+s[0]+':</b> '+s[1]+'</p>').join('')+'</div>'}
-if(m.d)h+=m.d.map(d=>'<div class="dish">'+(FOTOS[d[0]]?'<div class="foto" data-n="'+d[0]+'" onclick="verIng(this.dataset.n)"><img src="img/'+FOTOS[d[0]].img+'.webp" alt="'+d[0]+'" loading="lazy"><span class="hint">👆 Ver ingredientes</span></div>':'<div class="ph"><span>'+m.i+'</span>Foto próximamente</div>')+'<div class="b"><div class="row"><h3>'+d[0]+'</h3><span class="price">'+fmt(d[1])+'</span></div><p>'+d[2]+'</p></div></div>').join('');
-if(m.drinks)h+=m.drinks.map(g=>'<div class="card"><div class="sub" style="margin-top:0">'+g[0]+'</div>'+(g[2]?'<p class="note">'+g[2]+'</p>':'')+g[1].map(x=>'<div class="drink"><span>'+x[0]+(x[1]===0?'<span class="badge">Nuevo</span>':'')+'</span><b class="'+(x[1]?'':'pend')+'">'+(x[1]?fmt(x[1]):'[definir]')+'</b></div>').join('')+'</div>').join('');
-document.getElementById('dishes').innerHTML=h}
-// juego
-const cv=document.getElementById('cv'),cx=cv.getContext('2d');let items=[],score=0,t=0,run=false,last=0,spawn=0;
-function startGame(){items=[];score=0;t=30;run=true;last=performance.now();requestAnimationFrame(loop)}
-function loop(n){if(!run)return;const dt=(n-last)/1000;last=n;t-=dt;spawn-=dt;if(spawn<=0){spawn=.6;const crab=Math.random()<.2,dir=Math.random()<.5?1:-1;items.push({x:dir>0?-30:390,y:40+Math.random()*340,v:dir*(60+Math.random()*90+score*2),e:crab?'🦀':['🐟','🐠','🐡','🦐'][Math.random()*4|0],crab})}
-items.forEach(i=>i.x+=i.v*dt);items=items.filter(i=>i.x>-40&&i.x<400);cx.clearRect(0,0,360,420);cx.fillStyle='rgba(255,255,255,.25)';for(let k=0;k<6;k++){cx.beginPath();cx.arc((k*70+n/20)%380,410-(n/15+k*60)%420,4,0,7);cx.fill()}
-cx.font='34px serif';cx.textAlign='center';cx.textBaseline='middle';items.forEach(i=>{cx.save();cx.translate(i.x,i.y);if(i.v>0&&!i.crab)cx.scale(-1,1);cx.fillText(i.e,0,0);cx.restore()});
-document.getElementById('score').textContent='Puntos: '+score;document.getElementById('time').textContent=Math.max(0,Math.ceil(t))+'s';
-if(t<=0){run=false;cx.fillStyle='rgba(6,52,74,.75)';cx.fillRect(0,0,360,420);cx.fillStyle='#fff';cx.font='bold 26px sans-serif';cx.fillText('¡Fin! '+score+' puntos',180,190);cx.font='16px sans-serif';cx.fillText(score>=15?'¡Eres un gran pescador! 🎣':'Inténtalo otra vez 🌊',180,225);return}requestAnimationFrame(loop)}
-cv.addEventListener('pointerdown',e=>{if(!run)return;const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*360/r.width,y=(e.clientY-r.top)*420/r.height;for(let k=items.length-1;k>=0;k--){const i=items[k];if(Math.hypot(i.x-x,i.y-y)<30){score+=i.crab?-3:1;items.splice(k,1);break}}});
-if(new URLSearchParams(location.search).get("cat"))go("menu");
-cx.font='20px sans-serif';cx.fillStyle='#fff';cx.textAlign='center';cx.fillText('Pulsa "Jugar" 🐟',180,210);
-</script></body></html>
+'Chicharrón de Pirarucú (para compartir)':{img:'chicharron-de-pirarucu',ing:[['Limón',10,38],['Salsa artesanal',75,32],['Rebozado dorado',35,60],['Filete de pirarucú',68,72]]}
+};
+
+const PLACEHOLDER_PESCADO = '<div class="ph ph-limpio" aria-hidden="true"><svg viewBox="0 0 128 72" width="96" height="54"><path d="M18 38c18-20 50-20 74 0-6 14-28 22-46 18" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M90 36c12-10 24-8 34-2-12 6-22 12-34 8z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/><circle cx="42" cy="34" r="2.3" fill="#fff"/></svg></div>';
+
+function esc(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const fmt = p => '$' + p.toLocaleString('es-CO');
+function precioHTML(p){
+  if (p === 'S.T.') return '<span class="price" title="Precio según tamaño">S.T.</span>';
+  return '<span class="price">' + fmt(p) + '</span>';
+}
+function sustituirFoto(img){
+  const foto = img.closest('.foto');
+  if (foto) foto.outerHTML = PLACEHOLDER_PESCADO;
+}
+function cargarFoto(img){
+  const src = img.getAttribute('data-src');
+  if (!src) return;
+  img.removeAttribute('data-src');
+  img.loading = 'eager';
+  img.decoding = 'async';
+  const lista = () => img.classList.add('is-in');
+  img.onload = () => {
+    if (img.decode) img.decode().then(lista).catch(lista);
+    else lista();
+  };
+  img.onerror = () => sustituirFoto(img);
+  img.src = src;
+}
+function cargarFotosVisibles(){
+  const limite = window.innerHeight + 480;
+  document.querySelectorAll('img[data-src]').forEach(img => {
+    if (img.getBoundingClientRect().top < limite) cargarFoto(img);
+  });
+}
+let fotoObs;
+function vigilarFotos(root){
+  const imgs = [...root.querySelectorAll('img[data-src]')];
+  if (!imgs.length) return;
+  if (!('IntersectionObserver' in window)){imgs.forEach(cargarFoto); return}
+  if (!fotoObs){
+    fotoObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        cargarFoto(en.target);
+        fotoObs.unobserve(en.target);
+      });
+    }, {root:null, rootMargin:'480px 0px', threshold:0.01});
+  }
+  imgs.forEach(img => fotoObs.observe(img));
+  requestAnimationFrame(cargarFotosVisibles);
+}
+
+let ingAbierto = null;
+function verIng(n){
+  const f = FOTOS[n];
+  if (!f) return;
+  ingAbierto = n;
+  document.getElementById('ingT').textContent = n;
+  const ov = document.getElementById('ingOv'), img = document.getElementById('ingImg');
+  ov.classList.remove('on');
+  ov.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  img.onload = () => {dibujarIng(); requestAnimationFrame(() => requestAnimationFrame(() => ov.classList.add('on')))};
+  img.src = 'img/' + f.img + '.webp';
+  if (img.complete && img.naturalWidth) img.onload();
+}
+function cerrarIng(){
+  const ov = document.getElementById('ingOv');
+  ov.classList.remove('on');
+  document.body.style.overflow = '';
+  ingAbierto = null;
+  setTimeout(() => {if (!ingAbierto) ov.style.display = 'none'}, 300);
+}
+function dibujarIng(){
+  const f = FOTOS[ingAbierto];
+  if (!f) return;
+  const st = document.getElementById('ingStage'), img = document.getElementById('ingImg'), svg = document.getElementById('ingSvg'), L = document.getElementById('ingL');
+  const W = st.clientWidth, H = st.clientHeight, ar = img.naturalWidth / img.naturalHeight;
+  let iw = W - 32, ih = iw / ar; const maxH = H * .48; if (ih > maxH){ih = maxH; iw = ih * ar}
+  const ix = (W - iw) / 2, iy = (H - ih) / 2;
+  Object.assign(img.style, {left:ix + 'px', top:iy + 'px', width:iw + 'px', height:ih + 'px'});
+  const pts = f.ing.map(([t, x, y]) => ({t, x:ix + iw * x / 100, y:iy + ih * y / 100})).sort((a, b) => a.y - b.y);
+  const nTop = Math.ceil(pts.length / 2), grupos = [pts.slice(0, nTop), pts.slice(nTop)];
+  let svgH = '', lbl = '';
+  grupos.forEach((g, gi) => {
+    g.sort((a, b) => a.x - b.x);
+    const k = g.length, top = gi === 0;
+    const zona0 = top ? 8 : iy + ih + 18, zona1 = top ? iy - 18 : H - 8;
+    g.forEach((p, i) => {
+      const lx = W * (i + .5) / k, alto = (zona1 - zona0);
+      const ly = top ? zona0 + alto * (k > 2 && i % 2 ? 0.62 : 0.28) : zona0 + alto * (k > 2 && i % 2 ? 0.38 : 0.72);
+      const ey = top ? ly + 16 : ly - 16, my = (ey + p.y) / 2;
+      const d = `M${lx},${ey} C${lx},${my} ${p.x},${my} ${p.x},${p.y}`;
+      const len = Math.hypot(lx - p.x, ey - p.y) * 1.3 + 20, del = .25 + (gi * k + i) * .09;
+      svgH += `<path d="${d}" style="--l:${len};transition-delay:${del}s"/>`;
+      lbl += `<div class="pin" style="left:${p.x}px;top:${p.y}px;transition-delay:${del}s"></div><div class="lbl" style="left:${lx}px;top:${ly}px;max-width:${W / k - 10}px;transition-delay:${del + .15}s">${esc(p.t)}</div>`;
+    });
+  });
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = svgH;
+  L.innerHTML = lbl;
+}
+addEventListener('resize', () => {if (ingAbierto) dibujarIng(); updateCatsHint()});
+addEventListener('keydown', e => {if (e.key === 'Escape' && ingAbierto) cerrarIng()});
+
+function htmlPlato(d, cat){
+  const nombre = d[0], foto = FOTOS[nombre];
+  let media;
+  if (foto){
+    media = `<div class="foto" data-n="${esc(nombre)}" onclick="verIng(this.dataset.n)"><img data-src="img/${foto.img}.webp" alt="${esc(nombre)}" decoding="async"><span class="hint">Ver ingredientes</span></div>`;
+  } else if (cat === 'Pescados'){
+    media = PLACEHOLDER_PESCADO;
+  } else {
+    media = `<div class="ph"><span aria-hidden="true">${MENU[cat].i}</span>Foto próximamente</div>`;
+  }
+  return `<article class="dish">${media}<div class="b"><div class="row"><h3>${esc(nombre)}</h3>${precioHTML(d[1])}</div><p>${esc(d[2])}</p></div></article>`;
+}
+function htmlBebidas(groups){
+  return groups.map(g => {
+    const items = (g[1] || []).filter(x => typeof x[1] === 'number' && x[1] > 0);
+    if (!items.length) return '';
+    const note = g[2] ? `<p class="note">${esc(g[2])}</p>` : '';
+    return `<div class="card"><div class="sub">${esc(g[0])}</div>${note}${items.map(x => `<div class="drink"><span>${esc(x[0])}</span>${precioHTML(x[1])}</div>`).join('')}</div>`;
+  }).join('');
+}
+function updateCatsHint(){
+  const el = document.getElementById('cats');
+  const wrap = document.getElementById('catsWrap');
+  if (!el || !wrap) return;
+  const max = el.scrollWidth - el.clientWidth;
+  wrap.classList.toggle('can-right', max > 8 && el.scrollLeft < max - 8);
+  wrap.classList.toggle('can-left', el.scrollLeft > 8);
+}
+function asegurarPestana(btn){
+  const scroller = document.getElementById('cats');
+  const pad = 104;
+  const left = btn.offsetLeft, right = left + btn.offsetWidth;
+  const viewL = scroller.scrollLeft, viewR = viewL + scroller.clientWidth;
+  let next = null;
+  if (left - pad < viewL) next = Math.max(0, left - pad);
+  else if (right + pad > viewR) next = right + pad - scroller.clientWidth;
+  if (next != null) scroller.scrollTo({left: next, behavior: reduceMotion() ? 'auto' : 'smooth'});
+  requestAnimationFrame(updateCatsHint);
+}
+function buildMenu(){
+  const c = document.getElementById('cats');
+  Object.keys(MENU).forEach(k => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.dataset.cat = k;
+    b.textContent = MENU[k].i + ' ' + k;
+    b.onclick = () => showCat(k);
+    c.appendChild(b);
+  });
+  const q = new URLSearchParams(location.search).get('cat');
+  showCat(MENU[q] ? q : 'Entradas');
+  requestAnimationFrame(updateCatsHint);
+}
+function showCat(k){
+  document.querySelectorAll('#cats button').forEach(b => {
+    const on = b.dataset.cat === k;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  const activa = [...document.querySelectorAll('#cats button')].find(b => b.classList.contains('on'));
+  if (activa) asegurarPestana(activa);
+  const m = MENU[k];
+  let h = '<h2>' + esc(k) + '</h2>' + (m.note ? '<p class="note">' + esc(m.note) + '</p>' : '');
+  if (m.salsas){
+    h += '<div class="card salsas"><div class="sub">Salsas para filetes</div>' + m.salsas.map(s => '<p><b>' + esc(s[0]) + '.</b> ' + esc(s[1]) + '</p>').join('') + '</div>';
+  }
+  if (m.d) h += m.d.map(d => htmlPlato(d, k)).join('');
+  if (m.drinks) h += htmlBebidas(m.drinks);
+  const box = document.getElementById('dishes');
+  box.innerHTML = h;
+  vigilarFotos(box);
+  const heading = box.querySelector('h2');
+  const bar = document.querySelector('.menu-top');
+  if (heading && bar && heading.getBoundingClientRect().top < bar.offsetHeight){
+    heading.style.scrollMarginTop = (bar.offsetHeight + 8) + 'px';
+    heading.scrollIntoView({block:'start', behavior: reduceMotion() ? 'auto' : 'smooth'});
+  }
+}
+document.getElementById('cats').addEventListener('scroll', updateCatsHint, {passive:true});
+
+function syncTop(){
+  const enMenu = document.getElementById('v-menu').classList.contains('on');
+  document.getElementById('toTop').hidden = !(enMenu && window.scrollY > 480);
+}
+document.getElementById('toTop').addEventListener('click', () => {
+  window.scrollTo({top:0, behavior: reduceMotion() ? 'auto' : 'smooth'});
+});
+addEventListener('scroll', () => {syncTop(); cargarFotosVisibles()}, {passive:true});
+
+const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+let items = [], score = 0, t = 0, run = false, last = 0, spawn = 0;
+function startGame(){items = []; score = 0; t = 30; run = true; last = performance.now(); requestAnimationFrame(loop)}
+function loop(n){
+  if (!run) return;
+  const dt = (n - last) / 1000; last = n; t -= dt; spawn -= dt;
+  if (spawn <= 0){
+    spawn = .6;
+    const crab = Math.random() < .2, dir = Math.random() < .5 ? 1 : -1;
+    items.push({x:dir > 0 ? -30 : 390, y:40 + Math.random() * 340, v:dir * (60 + Math.random() * 90 + score * 2), e:crab ? '🦀' : ['🐟','🐠','🐡','🦐'][Math.random() * 4 | 0], crab});
+  }
+  items.forEach(i => i.x += i.v * dt);
+  items = items.filter(i => i.x > -40 && i.x < 400);
+  cx.clearRect(0, 0, 360, 420);
+  cx.fillStyle = 'rgba(255,255,255,.25)';
+  for (let k = 0; k < 6; k++){cx.beginPath(); cx.arc((k * 70 + n / 20) % 380, 410 - (n / 15 + k * 60) % 420, 4, 0, 7); cx.fill()}
+  cx.font = '34px serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  items.forEach(i => {cx.save(); cx.translate(i.x, i.y); if (i.v > 0 && !i.crab) cx.scale(-1, 1); cx.fillText(i.e, 0, 0); cx.restore()});
+  document.getElementById('score').textContent = 'Puntos: ' + score;
+  document.getElementById('time').textContent = Math.max(0, Math.ceil(t)) + 's';
+  if (t <= 0){
+    run = false;
+    cx.fillStyle = 'rgba(6,52,74,.75)'; cx.fillRect(0, 0, 360, 420);
+    cx.fillStyle = '#fff'; cx.font = 'bold 26px sans-serif'; cx.fillText('¡Fin! ' + score + ' puntos', 180, 190);
+    cx.font = '16px sans-serif'; cx.fillText(score >= 15 ? '¡Eres un gran pescador!' : 'Inténtalo otra vez', 180, 225);
+    return;
+  }
+  requestAnimationFrame(loop);
+}
+cv.addEventListener('pointerdown', e => {
+  if (!run) return;
+  const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * 360 / r.width, y = (e.clientY - r.top) * 420 / r.height;
+  for (let k = items.length - 1; k >= 0; k--){
+    const i = items[k];
+    if (Math.hypot(i.x - x, i.y - y) < 30){score += i.crab ? -3 : 1; items.splice(k, 1); break}
+  }
+});
+if (new URLSearchParams(location.search).get('cat')) go('menu');
+cx.font = '20px sans-serif'; cx.fillStyle = '#fff'; cx.textAlign = 'center'; cx.fillText('Pulsa Jugar', 180, 210);
+document.fonts && document.fonts.ready.then(() => {updateCatsHint(); const a = document.querySelector('#cats button.on'); if (a) asegurarPestana(a)});
+</script>
+</body>
+</html>
