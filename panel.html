@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
-<title>Refugio Marino - Atención</title>
+<title>Refugio Marino · Panel de caja</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="apple-touch-icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --font-sans:"Nunito Sans",sans-serif;
+  --font-sans:"Plus Jakarta Sans",sans-serif;
+  --font-script:"Kaushan Script",cursive;
   --navy:#0B3C5D;
   --teal:#0E6B64;
   --fondo:#F1F2F4;
@@ -43,8 +44,8 @@ header{display:flex;flex-direction:column;gap:10px;padding:10px 22px 12px;backgr
 .marca{display:flex;align-items:center;gap:12px;min-width:0}
 .marca img{height:58px;width:58px;display:block;border-radius:50%}
 .marca img.vacio{display:none}
-.marca h1{font-family:var(--font-sans);font-weight:800;font-size:26px;color:var(--navy);line-height:1.15}
-.marca p{font-size:14px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--teal);margin-top:2px}
+.marca h1{font-family:var(--font-script);font-weight:400;font-size:34px;color:var(--navy);line-height:1.05}
+.marca p{font-family:var(--font-sans);font-size:14px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--teal);margin-top:2px}
 .esp{margin-left:auto}
 #buscar{width:min(280px,100%);min-height:44px;padding:8px 12px;border:2px solid #C5CED6;border-radius:12px;background:#fff;font-size:16px}
 .filtros{display:flex;flex-wrap:wrap;gap:8px}
@@ -101,7 +102,14 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
 .capa{position:fixed;inset:0;background:rgba(241,242,244,.97);display:flex;align-items:center;justify-content:center;z-index:9}
 .capa .caja{background:#fff;border:1px solid var(--borde);border-radius:20px;box-shadow:0 10px 40px rgba(11,60,93,.12);padding:28px;width:min(420px,calc(100% - 32px));text-align:center}
 .capa h3{font-family:var(--font-sans);font-weight:800;font-size:28px;color:var(--navy);margin-bottom:8px}
+.capa h3.wordmark{font-family:var(--font-script);font-weight:400;font-size:40px;line-height:1.1}
 .capa p{color:var(--txt);font-size:16px;line-height:1.45}
+.campo{text-align:left;margin-top:14px}
+.campo label{display:block;font-size:14px;font-weight:700;color:var(--txt);margin-bottom:6px}
+.campo input{margin-top:0}
+.pass{position:relative}
+.pass input{padding-right:108px}
+#verPw{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:auto;min-height:36px;margin:0;padding:6px 10px;background:transparent;color:var(--navy);border:none;font-size:14px;font-weight:800}
 .capa input,.capa button{width:100%;padding:13px;margin-top:12px;border-radius:12px;border:1px solid #cfd4da;font-size:16px;font-family:inherit;min-height:48px}
 .capa button{background:var(--azul);color:#fff;border:none;font-weight:800}
 .capa button.sec{background:#fff;color:var(--navy);border:2px solid var(--navy)}
@@ -116,7 +124,7 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
   <div class="fila">
     <div class="marca">
       <img id="logo" src="logo.png" alt="Refugio Marino">
-      <div><h1>Refugio Marino</h1><p>Atención</p></div>
+      <div><h1>Refugio Marino</h1><p>Panel de caja</p></div>
     </div>
     <span class="esp"></span>
     <button id="btnSonido" type="button" aria-pressed="false" aria-label="Sonido apagado. Activar sonido">Sonido apagado</button>
@@ -142,16 +150,25 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
 <footer class="leyenda" id="chips"></footer>
 
 <div class="capa" id="login"><form class="caja" onsubmit="entrar(event)">
-  <h3>Refugio Marino</h3><p>Panel de caja</p>
-  <input id="em" type="email" placeholder="Correo del personal" autocomplete="username" required>
-  <input id="pw" type="password" placeholder="Contraseña" autocomplete="current-password" required>
+  <h3 class="wordmark">Refugio Marino</h3><p>Panel de caja</p>
+  <div class="campo">
+    <label for="em">Correo</label>
+    <input id="em" type="email" placeholder="correo@ejemplo.com" autocomplete="username" required>
+  </div>
+  <div class="campo">
+    <label for="pw">Contraseña</label>
+    <div class="pass">
+      <input id="pw" type="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+      <button type="button" id="verPw" aria-label="Mostrar contraseña">Mostrar</button>
+    </div>
+  </div>
   <button>Entrar</button><p id="lerr"></p>
 </form></div>
 
 <div class="capa" id="activar" style="display:none"><div class="caja" role="dialog" aria-modal="true" aria-labelledby="listoTit">
   <h3 id="listoTit">¡Listo!</h3>
-  <p>El panel ya puede recibir llamados. El sonido se enciende o se apaga con el botón de la cabecera.</p>
-  <button type="button" id="btnCerrarListo">Cerrar</button>
+  <p>El panel ya puede recibir llamados. Activa el sonido para oír cuando un cliente llame al mesero.</p>
+  <button type="button" id="btnActivarListo">Activar sonido</button>
   <button type="button" id="btnAhoraNo" class="sec">Ahora no</button>
 </div></div>
 
@@ -277,8 +294,14 @@ document.querySelectorAll('.filtros button').forEach(b=>b.onclick=()=>{
   dibujar();
 });
 function cerrarListo(){$('activar').style.display='none'}
-$('btnCerrarListo').onclick=cerrarListo;
+$('btnActivarListo').onclick=async()=>{await activarSonido();cerrarListo()};
 $('btnAhoraNo').onclick=cerrarListo;
+$('verPw').onclick=()=>{
+  const inp=$('pw'), ver=inp.type==='password';
+  inp.type=ver?'text':'password';
+  $('verPw').textContent=ver?'Ocultar':'Mostrar';
+  $('verPw').setAttribute('aria-label',ver?'Ocultar contraseña':'Mostrar contraseña');
+};
 
 async function cargarMesas(){const {data}=await sb.from('mesas').select('id,nombre,zona,capacidad,forma,estado').eq('restaurante_id',RESTAURANTE_ID).eq('activa',true).order('nombre');
   MESAS=data||[];MESAS.forEach(m=>EST[m.id]=m.estado);dibujar()}
