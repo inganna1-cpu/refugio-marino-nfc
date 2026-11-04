@@ -15,16 +15,13 @@ main{max-width:520px;margin:-18px auto 0;padding:0 16px 40px;position:relative}
 .btn{background:#fff;border:none;border-radius:20px;padding:20px 10px;box-shadow:0 6px 18px rgba(6,52,74,.12);text-align:center;font-size:15px;font-weight:600;color:var(--deep);cursor:pointer;text-decoration:none;display:block}
 .btn .ico{font-size:34px;display:block;margin-bottom:6px}.btn.wide{grid-column:span 2;background:linear-gradient(135deg,var(--sea),var(--aqua));color:#fff}
 .carta{grid-column:span 2;position:relative;overflow:hidden;border:none;border-radius:24px;padding:24px 20px;cursor:pointer;color:#fff;text-align:left;
-  background:linear-gradient(120deg,var(--navy) 0%,var(--teal) 100%);box-shadow:0 12px 28px rgba(11,60,93,.38);display:flex;align-items:center;gap:16px;animation:latido 2.6s ease-in-out infinite}
+  background:linear-gradient(120deg,var(--navy) 0%,var(--teal) 100%);box-shadow:0 12px 28px rgba(11,60,93,.38);display:flex;align-items:center;gap:16px;transition:transform .12s,box-shadow .12s}
+.carta:active{transform:scale(.97);box-shadow:0 6px 16px rgba(11,60,93,.35)}
+@media (hover:hover){.carta:hover{filter:brightness(1.08)}}
 .carta .ic{flex:none;width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:36px}
 .carta b{display:block;font-size:26px;font-weight:900;letter-spacing:1.5px}
 .carta small{display:block;font-size:14px;opacity:.9;margin-top:3px}
-.carta .fl{margin-left:auto;font-size:30px;font-weight:700;animation:fl 1.3s ease-in-out infinite}
-.carta::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:brillo 3.2s ease-in-out infinite}
-@keyframes brillo{0%,55%{left:-60%}100%{left:130%}}
-@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
-@keyframes fl{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
-@media (prefers-reduced-motion:reduce){.carta,.carta::after,.carta .fl{animation:none}}
+.carta .fl{margin-left:auto;font-size:30px;font-weight:700}
 .view{display:none}.view.on{display:block;animation:f .3s}@keyframes f{from{opacity:0;transform:translateY(8px)}}
 .back{background:none;border:none;color:var(--sea);font-weight:700;font-size:15px;margin:14px 0;cursor:pointer}
 .card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(6,52,74,.1);margin-bottom:14px}
@@ -203,7 +200,7 @@ const FOTOS={
 "Cazuela Mariscos Refugio Marino":{"img": "cazuela-mariscos-refugio-marino", "ing": [["Crema marinera", 35, 50], ["Mejillón", 44, 37], ["Camarones", 33, 30], ["Calamar", 52, 46], ["Palmitos", 58, 38]]},
 "Cazuela Camarones":{"img": "cazuela-camarones", "ing": [["Camarones", 27, 45], ["Mejillón", 33, 48], ["Palmitos", 50, 50], ["Queso parmesano", 42, 30], ["Patacón", 87, 50], ["Arroz con coco", 77, 80]]},
 "Arroz con Camarones":{"img": "arroz-con-camarones", "ing": [["Camarones tigre", 58, 56], ["Vegetales", 51, 63], ["Arroz", 38, 62], ["Papas de la casa", 90, 70], ["Ensalada", 10, 45]]},
-"Paella valenciana":{"img": "paella-valenciana", "ing": [["Pollo", 57, 60], ["Chorizo", 37, 36], ["Camarones", 31, 68], ["Mejillón", 36, 52], ["Calamar", 17, 56], ["Pan de ajo", 90, 56]]},
+"Paella valenciana":{"img": "paella-valenciana", "ing": [["Pollo", 57, 60], ["Chorizo", 68, 55], ["Camarones", 31, 68], ["Mejillón", 36, 52], ["Calamar", 17, 56], ["Pan de ajo", 90, 56]]},
 "Filete de salmón":{"img": "filete-de-salmon", "ing": [["Salmón a la plancha", 35, 78], ["Salsa de camarones", 63, 50], ["Papa en casco", 80, 40], ["Ensalada", 25, 45], ["Limón", 14, 62]]},
 "Filete de Róbalo":{"img": "filete-de-robalo", "ing": [["Filete de róbalo", 58, 80], ["Salsa al ajillo", 50, 60], ["Papa en casco", 22, 45], ["Ensalada", 73, 35], ["Limón", 77, 51]]},
 "Filete de Pargo Rojo":{"img": "filete-de-pargo-rojo", "ing": [["Filete de pargo rojo", 20, 62], ["Salsa mediterránea", 65, 78], ["Jaiba", 55, 57], ["Papa en casco", 82, 37], ["Ensalada", 25, 40]]},
