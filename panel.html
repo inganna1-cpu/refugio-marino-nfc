@@ -99,6 +99,23 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
 .item small{display:block;color:var(--muted);font-size:14px;margin-top:4px}
 .item button{margin-top:10px;width:100%;min-height:44px;padding:12px;border:none;border-radius:12px;background:var(--libre);color:#fff;font-weight:800;font-size:16px}
 
+.reservas{background:#fff;border-bottom:1px solid var(--borde);padding:12px 22px 14px;display:flex;flex-direction:column;gap:10px}
+.reservas-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.reservas h2{font-size:20px;font-weight:800;color:var(--navy);line-height:1.2}
+.reservas h2 span{font-weight:700;color:var(--muted);font-size:16px}
+#btnReservas{min-height:44px;padding:8px 16px;border-radius:12px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:800;font-size:15px}
+.reservas-lista{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px}
+.vacio-r{color:var(--muted);font-size:16px;padding:8px 0}
+.reserva{flex:none;min-width:240px;min-height:44px;border:1px solid var(--borde);border-radius:14px;padding:10px 12px;background:#fff;box-shadow:0 2px 8px rgba(11,60,93,.05)}
+.reserva-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.reserva .hora{font-size:18px;font-weight:800;color:var(--navy)}
+.reserva .nom{font-size:16px;font-weight:700;margin-top:2px}
+.reserva .meta{font-size:14px;color:var(--muted);font-weight:600;margin-top:2px}
+.reserva .extras{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{display:inline-flex;align-items:center;min-height:28px;padding:2px 8px;border-radius:999px;background:#E8EEF4;color:var(--navy);font-size:13px;font-weight:800}
+.tag.santi{background:#E3F4EA;color:var(--libre)}
+.tag.fiesta{background:#FFF1CC;color:var(--reservada)}
+
 .capa{position:fixed;inset:0;background:rgba(241,242,244,.97);display:flex;align-items:center;justify-content:center;z-index:9}
 .capa .caja{background:#fff;border:1px solid var(--borde);border-radius:20px;box-shadow:0 10px 40px rgba(11,60,93,.12);padding:28px;width:min(420px,calc(100% - 32px));text-align:center}
 .capa h3{font-family:var(--font-sans);font-weight:800;font-size:28px;color:var(--navy);margin-bottom:8px}
@@ -143,6 +160,14 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
   </div>
 </header>
 
+<section class="reservas" aria-labelledby="titReservas">
+  <div class="reservas-top">
+    <h2 id="titReservas">Reservas de hoy <span id="nReservas"></span></h2>
+    <button type="button" id="btnReservas" aria-label="Actualizar reservas de hoy">Actualizar</button>
+  </div>
+  <div id="listaReservas" class="reservas-lista" aria-live="polite"><p class="vacio-r">No hay reservas activas para hoy.</p></div>
+</section>
+
 <div class="wrap">
   <div id="mapa"></div>
   <aside><h2>Llamados</h2><div id="lista"></div></aside>
@@ -184,7 +209,11 @@ const MOCK=window.__MOCK__||null;
 let sb=null;
 if(!MOCK){const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2');sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);}
 
-let MESAS=[],EST={},pend=[];
+let MESAS=[],EST={},pend=[],RESERVAS=[];
+const ESTADOS_ACTIVOS=['pendiente','confirmada'];
+const CANAL={chatbot:'Santi',manual:'Manual',telefono:'Teléfono',walk_in:'Llegada',web:'Web'};
+const FIESTA={cumpleaños:'Cumpleaños',grado:'Grado',aniversario:'Aniversario'};
+const ESTADO_TXT={pendiente:'Pendiente',confirmada:'Confirmada'};
 let filtro='todas', busca='';
 const salonNum=m=>parseInt((m.nombre.match(/^S(\d+)/i)||[])[1]||0);
 const nombreSalon=n=>{const m=MESAS.find(x=>salonNum(x)===n);return m&&m.zona?m.zona:'Salón '+n};
@@ -279,6 +308,33 @@ function render(){
 setInterval(render,1000);
 window.atender=async id=>{pend=pend.filter(p=>p.id!==id);render();if(sb)await sb.from('llamados').update({atendido_en:new Date().toISOString()}).eq('id',id).is('atendido_en',null)};
 
+function hoyLocal(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Bogota'}).format(new Date())}
+function horaCorta(h){return String(h||'').slice(0,5)}
+function activasHoy(lista){return (lista||[]).filter(r=>ESTADOS_ACTIVOS.includes(r.estado)).sort((a,b)=>String(a.hora).localeCompare(String(b.hora)))}
+function pintarReservas(){
+  const box=$('listaReservas'), n=$('nReservas'), lista=activasHoy(RESERVAS);
+  if(n)n.textContent=lista.length?String(lista.length):'';
+  if(!box)return;
+  if(!lista.length){box.innerHTML='<p class="vacio-r">No hay reservas activas para hoy.</p>';return}
+  box.innerHTML=lista.map(r=>{
+    const m=mesa(r.mesa_id);
+    const canal=CANAL[r.canal]||r.canal||'';
+    const extras=[];
+    if(r.con_mascota)extras.push('Mascota');
+    if(r.celebracion)extras.push(FIESTA[r.celebracion]||r.celebracion);
+    const pers=Number(r.comensales)===1?'1 persona':r.comensales+' personas';
+    const mesaNom=m?m.nombre:('Mesa '+r.mesa_id);
+    return `<article class="reserva"><div class="reserva-top"><b class="hora">${esc(horaCorta(r.hora))}</b><span class="tag${r.canal==='chatbot'?' santi':''}">${esc(canal)}</span></div><div class="nom">${esc(r.nombre_cliente)}</div><div class="meta">${esc(pers)} · ${esc(mesaNom)} · ${esc(ESTADO_TXT[r.estado]||r.estado)}</div>${extras.length?'<div class="extras">'+extras.map(x=>'<span class="tag fiesta">'+esc(x)+'</span>').join('')+'</div>':''}</article>`;
+  }).join('');
+}
+async function cargarReservas(){
+  if(!sb)return;
+  const {data,error}=await sb.from('reservas').select('id,nombre_cliente,hora,comensales,mesa_id,estado,canal,celebracion,con_mascota').eq('restaurante_id',RESTAURANTE_ID).eq('fecha',hoyLocal()).in('estado',ESTADOS_ACTIVOS).order('hora');
+  if(error){$('listaReservas').innerHTML='<p class="vacio-r">No pudimos cargar las reservas.</p>';return}
+  RESERVAS=activasHoy(data);
+  pintarReservas();
+}
+let debR;const refrescarReservas=()=>{clearTimeout(debR);debR=setTimeout(cargarReservas,400)};
 function setEstado(modo){
   const el=$('estado');
   if(modo==='vivo')el.innerHTML='<i class="pto vivo"></i> En vivo';
@@ -296,6 +352,7 @@ document.querySelectorAll('.filtros button').forEach(b=>b.onclick=()=>{
 function cerrarListo(){$('activar').style.display='none'}
 $('btnActivarListo').onclick=async()=>{await activarSonido();cerrarListo()};
 $('btnAhoraNo').onclick=cerrarListo;
+$('btnReservas').onclick=()=>{cargarReservas()};
 $('verPw').onclick=()=>{
   const inp=$('pw'), ver=inp.type==='password';
   inp.type=ver?'text':'password';
@@ -304,7 +361,7 @@ $('verPw').onclick=()=>{
 };
 
 async function cargarMesas(){const {data}=await sb.from('mesas').select('id,nombre,zona,capacidad,forma,estado').eq('restaurante_id',RESTAURANTE_ID).eq('activa',true).order('nombre');
-  MESAS=data||[];MESAS.forEach(m=>EST[m.id]=m.estado);dibujar()}
+  MESAS=data||[];MESAS.forEach(m=>EST[m.id]=m.estado);dibujar();pintarReservas()}
 async function cargarEstados(){if(!MESAS.length)return;
   const {data,error}=await sb.from('v_mesas_estado_actual').select('id,estado_efectivo').in('id',MESAS.map(m=>m.id));
   if(!error&&data)data.forEach(r=>EST[r.id]=r.estado_efectivo);pintar()}
@@ -318,19 +375,19 @@ function conectar(){
    .on('postgres_changes',{event:'*',schema:'public',table:'mesas'},p=>{const n=p.new||{};
      if(p.eventType==='UPDATE'&&MESAS.some(m=>m.id===n.id)&&['nombre','zona','pos_x','pos_y','forma','activa'].every(k=>mesa(n.id)[k]===n[k]||k==='activa'&&n.activa)){mesa(n.id).estado=n.estado;refrescarEstados()}
      else cargarMesas().then(cargarEstados)})
-   .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},refrescarEstados)
+   .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},()=>{refrescarEstados();refrescarReservas()})
    .on('postgres_changes',{event:'*',schema:'public',table:'ordenes'},refrescarEstados)
-   .subscribe(s=>{setEstado(s==='SUBSCRIBED'?'vivo':'recon');if(s==='SUBSCRIBED'){cargarMesas().then(cargarEstados);cargarLlamados()}});
-  setInterval(cargarEstados,60000);
+   .subscribe(s=>{setEstado(s==='SUBSCRIBED'?'vivo':'recon');if(s==='SUBSCRIBED'){cargarMesas().then(()=>{cargarEstados();cargarReservas()});cargarLlamados()}});
+  setInterval(()=>{cargarEstados();cargarReservas()},60000);
 }
 function listo(){$('login').remove();$('activar').style.display='flex'}
 window.entrar=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('em').value,password:$('pw').value});
   if(error){$('lerr').textContent='Correo o contraseña incorrectos';return}mostrarSalir(true);listo();conectar()};
 
-if(MOCK){MESAS=MOCK.mesas;MOCK.mesas.forEach(m=>EST[m.id]=m.estado);pend=MOCK.llamados||[];$('login').remove();
+if(MOCK){MESAS=MOCK.mesas;MOCK.mesas.forEach(m=>EST[m.id]=m.estado);pend=MOCK.llamados||[];RESERVAS=MOCK.reservas||[];$('login').remove();
   if(!MOCK.mostrarActivar)$('activar').style.display='none';else $('activar').style.display='flex';
   if(MOCK.sesion)mostrarSalir(true);
-  setEstado('vivo');dibujar()}
+  setEstado('vivo');dibujar();pintarReservas()}
 else{const {data}=await sb.auth.getSession();if(data.session){mostrarSalir(true);listo();conectar()}}
 </script>
 </body>
