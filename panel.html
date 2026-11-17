@@ -104,9 +104,15 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
 .reservas h2{font-size:20px;font-weight:800;color:var(--navy);line-height:1.2}
 .reservas h2 span{font-weight:700;color:var(--muted);font-size:16px}
 #btnReservas{min-height:44px;padding:8px 16px;border-radius:12px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:800;font-size:15px}
-.reservas-lista{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px}
+.reservas-pista{position:relative}
+.reservas-pista::after{content:"";position:absolute;top:0;right:0;bottom:0;width:36px;pointer-events:none;background:linear-gradient(to right,rgba(255,255,255,0),#fff)}
+.reservas-lista{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
 .vacio-r{color:var(--muted);font-size:16px;padding:8px 0}
-.reserva{flex:none;min-width:240px;min-height:44px;border:1px solid var(--borde);border-radius:14px;padding:10px 12px;background:#fff;box-shadow:0 2px 8px rgba(11,60,93,.05)}
+.reserva{flex:0 0 min(240px,calc(100% - 48px));scroll-snap-align:start;min-width:0;min-height:44px;border:1px solid var(--borde);border-radius:14px;padding:10px 12px;background:#fff;box-shadow:0 2px 8px rgba(11,60,93,.05)}
+@media (min-width:900px){
+  .reservas-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));overflow:visible;scroll-snap-type:none}
+  .reservas-pista::after{display:none}
+}
 .reserva-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .reserva .hora{font-size:18px;font-weight:800;color:var(--navy)}
 .reserva .nom{font-size:16px;font-weight:700;margin-top:2px}
@@ -165,7 +171,9 @@ aside h2{font-weight:800;font-size:22px;color:var(--navy);margin-bottom:10px}
     <h2 id="titReservas">Reservas de hoy <span id="nReservas"></span></h2>
     <button type="button" id="btnReservas" aria-label="Actualizar reservas de hoy">Actualizar</button>
   </div>
-  <div id="listaReservas" class="reservas-lista" aria-live="polite"><p class="vacio-r">No hay reservas activas para hoy.</p></div>
+  <div class="reservas-pista">
+    <div id="listaReservas" class="reservas-lista" aria-live="polite"><p class="vacio-r">No hay reservas activas para hoy.</p></div>
+  </div>
 </section>
 
 <div class="wrap">
@@ -311,9 +319,10 @@ window.atender=async id=>{pend=pend.filter(p=>p.id!==id);render();if(sb)await sb
 function hoyLocal(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Bogota'}).format(new Date())}
 function horaCorta(h){return String(h||'').slice(0,5)}
 function activasHoy(lista){return (lista||[]).filter(r=>ESTADOS_ACTIVOS.includes(r.estado)).sort((a,b)=>String(a.hora).localeCompare(String(b.hora)))}
+function textoActivas(n){return n===1?'· 1 activa':'· '+n+' activas'}
 function pintarReservas(){
   const box=$('listaReservas'), n=$('nReservas'), lista=activasHoy(RESERVAS);
-  if(n)n.textContent=lista.length?String(lista.length):'';
+  if(n)n.textContent=lista.length?textoActivas(lista.length):'';
   if(!box)return;
   if(!lista.length){box.innerHTML='<p class="vacio-r">No hay reservas activas para hoy.</p>';return}
   box.innerHTML=lista.map(r=>{
@@ -330,7 +339,7 @@ function pintarReservas(){
 async function cargarReservas(){
   if(!sb)return;
   const {data,error}=await sb.from('reservas').select('id,nombre_cliente,hora,comensales,mesa_id,estado,canal,celebracion,con_mascota').eq('restaurante_id',RESTAURANTE_ID).eq('fecha',hoyLocal()).in('estado',ESTADOS_ACTIVOS).order('hora');
-  if(error){$('listaReservas').innerHTML='<p class="vacio-r">No pudimos cargar las reservas.</p>';return}
+  if(error){if($('nReservas'))$('nReservas').textContent='';$('listaReservas').innerHTML='<p class="vacio-r">No pudimos cargar las reservas. Puedes reintentar con Actualizar.</p>';return}
   RESERVAS=activasHoy(data);
   pintarReservas();
 }
